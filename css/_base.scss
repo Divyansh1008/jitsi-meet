@@ -130,6 +130,7 @@ form {
     background-size: contain;
     background-repeat: no-repeat;
     z-index: $zindex2;
+    visibility: hidden;
 }
 
 .leftwatermark {
@@ -138,12 +139,14 @@ form {
     background-position: center left;
     background-repeat: no-repeat;
     background-size: contain;
+    visibility: hidden;
 }
 
 .rightwatermark {
     right: 32px;
     top: 32px;
     background-position: center right;
+    visibility: hidden;
 }
 
 .poweredby {
