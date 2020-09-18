@@ -347,7 +347,7 @@ export default class LargeVideoManager {
      */
     resizeContainer(type, animate = false) {
         const container = this.getContainer(type);
-        console.log("resizeContainer...........",this.width, this.height);
+        //console.log("resizeContainer...........",this.width, this.height);
         container.resize(this.width, this.height, animate);
     }
 

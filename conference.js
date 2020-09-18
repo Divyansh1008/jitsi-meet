@@ -1728,7 +1728,7 @@ export default {
      * {@link JitsiStreamPresenterEffect} if it succeeds.
      */
     async _createPresenterStreamEffect(height = null, cameraDeviceId = null) {
-        console.log("fuckmylife...............");
+        //console.log("fuckmylife...............");
         if (!this.localPresenterVideo) {
             try {
                 this.localPresenterVideo = await createLocalPresenterTrack({ cameraDeviceId }, height);
@@ -2301,7 +2301,7 @@ export default {
                         .then(effect => this.localVideo.setEffect(effect))
                         .then(() => {
                             this.setVideoMuteStatus(false);
-                            console.log("Where to put flipx................2303");
+                            //console.log("Where to put flipx................2303");
                             logger.log('switched local video device');
                             this._updateVideoDeviceId();
                         })
@@ -2319,7 +2319,7 @@ export default {
                     // FIXME JitsiLocalTrack.dispose is async and should be waited for
                     this.localPresenterVideo && this.localPresenterVideo.dispose();
                     this.localPresenterVideo = null;
-                    console.log("Where to put flipx................2321");
+                    //console.log("Where to put flipx................2321");
                     this._createPresenterStreamEffect(height, cameraDeviceId);
 
                 // if there is only video, switch to the new camera stream.

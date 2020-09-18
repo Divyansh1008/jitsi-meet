@@ -45,7 +45,7 @@ export default class JitsiStreamPresenterEffect {
         const videoDiv = document.createElement('div');
         const firstVideoTrack = videoStream.getVideoTracks()[0];
         const { height, width, frameRate } = firstVideoTrack.getSettings() ?? firstVideoTrack.getConstraints();
-        console.log(".................here............",height, width, frameRate);
+        //console.log(".................here............",height, width, frameRate);
         this._canvas = document.createElement('canvas');
         this._ctx = this._canvas.getContext('2d');
         this._canvas1 = document.createElement('canvas');
