@@ -65,13 +65,14 @@ class LargeVideo extends Component<Props> {
     render() {
         const style = this._getCustomSyles();
         const className = `videocontainer${this.props._isChatOpen ? ' shift-right' : ''}`;
-        console.log("is this where magic happens?");
+        //console.log("is this where magic happens?");
         const rot = {
-            transform: `rotate(270deg)`,
+            transform: `rotate(90deg)`,
+            //Rotating here........
             //width: '1080px'
           };
         if(window.innerHeight>window.innerWidth){
-            console.log(".....................Vertical render");
+            //console.log(".....................Vertical render");
         return (
             <div
                 className = { className }
@@ -120,7 +121,7 @@ class LargeVideo extends Component<Props> {
             </div>
         );
     }else{
-        console.log(".....................horizontal render");
+        //console.log(".....................horizontal render");
         return (
             <div
                 className = { className }

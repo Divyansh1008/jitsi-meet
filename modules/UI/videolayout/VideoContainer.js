@@ -122,7 +122,6 @@ function computeCameraVideoSize( // eslint-disable-line max-params
         const maxHeight = videoSpaceHeight * 1;
                   
 
-
             //rotated, hence interchanging maxHeight and maxWidth in the below logic
         if(videoSpaceHeight>videoSpaceWidth){
             //console.log("vertical screen detected - > VideoContainer.js 129");
