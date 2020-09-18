@@ -335,10 +335,10 @@ export class VideoContainer extends LargeContainer {
                 containerHeight);
         }
         //console.log("_getVideoSize..............",computeCameraVideoSize(width,
-            height,
-            containerWidth,
-            containerHeight,
-            interfaceConfig.VIDEO_LAYOUT_FIT));
+            // height,
+            // containerWidth,
+            // containerHeight,
+            // interfaceConfig.VIDEO_LAYOUT_FIT));
         return computeCameraVideoSize(width,
             height,
             containerWidth,
