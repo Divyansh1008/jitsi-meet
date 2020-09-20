@@ -958,14 +958,14 @@ class Toolbox extends Component<Props, State> {
         const tooltip = t(
             _desktopSharingEnabled
                 ? 'dialog.shareYourScreen' : _desktopSharingDisabledTooltipKey);
-
+            console.log("sabse pehle hum aaye");
         return (
             <ToolbarButton
                 accessibilityLabel
                     = { t('toolbar.accessibilityLabel.shareYourScreen') }
                 disabled = { !_desktopSharingEnabled }
                 icon = { IconShareDesktop }
-                onClick = { this._onToolbarToggleScreenshare }
+                onClick = { this._onToolbarToggleScreenshare}
                 toggled = { _screensharing }
                 tooltip = { tooltip } />
         );

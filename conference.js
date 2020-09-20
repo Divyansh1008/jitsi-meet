@@ -934,14 +934,16 @@ export default {
 
             return;
         }
-
+        console.log("Reached here 1111112222222222222222222222", mute);
         if (this.isSharingScreen) {
             // Chain _mutePresenterVideo calls
-            _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
+            console.log("1111111111111111111111111111", mute);
 
+            //_prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
+            console.log("1111112222222222222222222222", mute);   
             return;
         }
-
+        console.log("Entered here 1111112222222222222222222222", mute);
         // If not ready to modify track's state yet adjust the base/media
         if (!this._localTracksInitialized) {
             // This will only modify base/media.video.muted which is then synced
@@ -1760,7 +1762,7 @@ export default {
         const maybeShowErrorDialog = error => {
             APP.store.dispatch(notifyCameraError(error));
         };
-
+        console.log("...................__mutePresenterVideo....1763");
         // Check for NO-OP
         if (mute && (!this.localPresenterVideo || this.localPresenterVideo.isMuted())) {
 
@@ -1855,18 +1857,20 @@ export default {
             return Promise.reject('Switch in progress.');
         }
 
+        console.log("..............._switchToScreenSharing.....");
+
         this.videoSwitchInProgress = true;
 
         return this._createDesktopTrack(options)
             .then(async streams => {
                 const desktopVideoStream = streams.find(stream => stream.getType() === MEDIA_TYPE.VIDEO);
-
+                console.log(".....222222222222222222222222222222hailmarry.....");
                 if (desktopVideoStream) {
                     await this.useVideoStream(desktopVideoStream);
                 }
 
                 this._desktopAudioStream = streams.find(stream => stream.getType() === MEDIA_TYPE.AUDIO);
-
+                //_prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(false));
                 if (this._desktopAudioStream) {
                     // If there is a localAudio stream, mix in the desktop audio stream captured by the screen sharing
                     // api.
@@ -1882,8 +1886,10 @@ export default {
                 }
             })
             .then(() => {
+                this.muteVideo(!this.isLocalVideoMuted(), true);
                 this.videoSwitchInProgress = false;
                 if (config.enableScreenshotCapture) {
+
                     APP.store.dispatch(toggleScreenshotCaptureEffect(true));
                 }
                 sendAnalytics(createScreenSharingEvent('started'));
@@ -1908,6 +1914,9 @@ export default {
                 // asynchronous, but does not return a Promise and is not part
                 // of the current Promise chain.
                 this._handleScreenSharingError(error);
+
+                console.log(".....hailmarry.....");
+                _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
 
                 return Promise.reject(error);
             });
@@ -2768,7 +2777,7 @@ export default {
                         sendAnalytics(createTrackMutedEvent(
                             'video',
                             'device list changed'));
-                        logger.log('Video mute: device list changed');
+                        logger.log('......................................Video mute: device list changed');
                         muteLocalVideo(true);
                     }
                 }));

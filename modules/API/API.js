@@ -160,8 +160,10 @@ function initCommands() {
          * @returns {void}
          */
         'toggle-share-screen': (options = {}) => {
+            console.log("and then it came here.....");
             sendAnalytics(createApiEvent('screen.sharing.toggled'));
             toggleScreenSharing(options.enable);
+            console.log("and then it came here.....");
         },
         'toggle-tile-view': () => {
             sendAnalytics(createApiEvent('tile-view.toggled'));

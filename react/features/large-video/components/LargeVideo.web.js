@@ -155,7 +155,7 @@ class LargeVideo extends Component<Props> {
                       * another container for the background and the
                       * largeVideoWrapper in order to hide/show them.
                       */}
-                    <div id = 'largeVideoWrapper'>
+                    <div id = 'largeVideoWrapper' style ={rot}>
                         
                             <video
                                 autoPlay = { !this.props._noAutoPlayVideo }
