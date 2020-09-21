@@ -117,10 +117,11 @@ export default class JitsiStreamPresenterEffect {
         this._canvas2.width = parseInt(width, 10);
         this._canvas2.height = parseInt(height, 10);
         //console.log(height, width);
-        this._ctx2.translate(this._canvas2.width, 0);
-        this._ctx2.scale(-1, 1);
-        this._ctx1.rotate(Math.PI/2);
-        this._ctx1.translate(0,-this._canvas.width);
+        this._ctx2.translate(0, this._canvas2.height);
+        this._ctx2.scale(1, -1);
+        this._ctx1.rotate(-Math.PI/2);
+        //console.log(this._canvas.width);
+        this._ctx1.translate(-this._canvas.height,0);
 
         // this._ctx2.rotate(Math.PI);
         // this._ctx2.translate(-this._canvas2.width,-this._canvas2.height);

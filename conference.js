@@ -934,16 +934,16 @@ export default {
 
             return;
         }
-        console.log("Reached here 1111112222222222222222222222", mute);
+        //console.log("Reached here 1111112222222222222222222222", mute);
         if (this.isSharingScreen) {
             // Chain _mutePresenterVideo calls
             console.log("1111111111111111111111111111", mute);
 
-            //_prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
+            _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
             console.log("1111112222222222222222222222", mute);   
             return;
         }
-        console.log("Entered here 1111112222222222222222222222", mute);
+        //console.log("Entered here 1111112222222222222222222222", mute);
         // If not ready to modify track's state yet adjust the base/media
         if (!this._localTracksInitialized) {
             // This will only modify base/media.video.muted which is then synced
@@ -1705,7 +1705,7 @@ export default {
                     () => {
                         // If the stream was stopped during screen sharing
                         // session then we should switch back to video.
-                        this.isSharingScreen
+                        this.isSharing4040Screen
                             && this._untoggleScreenSharing
                             && this._untoggleScreenSharing();
                     }
@@ -1886,7 +1886,7 @@ export default {
                 }
             })
             .then(() => {
-                this.muteVideo(!this.isLocalVideoMuted(), true);
+                //this.muteVideo(!this.isLocalVideoMuted(), true);
                 this.videoSwitchInProgress = false;
                 if (config.enableScreenshotCapture) {
 
@@ -1916,7 +1916,7 @@ export default {
                 this._handleScreenSharingError(error);
 
                 console.log(".....hailmarry.....");
-                _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
+                //_prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
 
                 return Promise.reject(error);
             });
