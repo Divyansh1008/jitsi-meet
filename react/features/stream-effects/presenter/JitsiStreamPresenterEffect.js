@@ -134,9 +134,7 @@ export default class JitsiStreamPresenterEffect {
         
         this._ctx.drawImage(this._canvas2, 0, 0, this._canvas.width, this._canvas.height);
         this._ctx.drawImage(this._canvas1, 0, 0, this._canvas1.width, this._canvas1.height);
-        
-        // this._ctx.drawImage(this._canvas2, 0, 0, this._canvas.width, this._canvas.height);
-        // this._ctx.drawImage(this._canvas1, 0, 0, this._canvas.width, (this._canvas.height));
+
 
         /*
 
