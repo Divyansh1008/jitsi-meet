@@ -188,7 +188,7 @@ class LargeVideo extends Component<Props> {
             styles.backgroundImage = `url(${_customBackgroundImageUrl})`;
             styles.backgroundSize = 'cover';
         }
-        logger.log("aalalalalalla.....",styles);
+
         return styles;
     }
 }

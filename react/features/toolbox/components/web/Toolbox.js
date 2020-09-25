@@ -965,7 +965,7 @@ class Toolbox extends Component<Props, State> {
                     = { t('toolbar.accessibilityLabel.shareYourScreen') }
                 disabled = { !_desktopSharingEnabled }
                 icon = { IconShareDesktop }
-                onClick = { this._onToolbarToggleScreenshare}
+                onClick = { this._onToolbarToggleScreenshare }
                 toggled = { _screensharing }
                 tooltip = { tooltip } />
         );
