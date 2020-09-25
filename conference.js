@@ -934,16 +934,13 @@ export default {
 
             return;
         }
-        //console.log("Reached here 1111112222222222222222222222", mute);
+        
         if (this.isSharingScreen) {
             // Chain _mutePresenterVideo calls
-            console.log("1111111111111111111111111111", mute);
-
             _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
-            console.log("1111112222222222222222222222", mute);   
             return;
         }
-        //console.log("Entered here 1111112222222222222222222222", mute);
+        
         // If not ready to modify track's state yet adjust the base/media
         if (!this._localTracksInitialized) {
             // This will only modify base/media.video.muted which is then synced
@@ -1705,7 +1702,7 @@ export default {
                     () => {
                         // If the stream was stopped during screen sharing
                         // session then we should switch back to video.
-                        this.isSharing4040Screen
+                        this.isSharingScreen
                             && this._untoggleScreenSharing
                             && this._untoggleScreenSharing();
                     }
@@ -1730,7 +1727,6 @@ export default {
      * {@link JitsiStreamPresenterEffect} if it succeeds.
      */
     async _createPresenterStreamEffect(height = null, cameraDeviceId = null) {
-        //console.log("fuckmylife...............");
         if (!this.localPresenterVideo) {
             try {
                 this.localPresenterVideo = await createLocalPresenterTrack({ cameraDeviceId }, height);
@@ -1762,7 +1758,7 @@ export default {
         const maybeShowErrorDialog = error => {
             APP.store.dispatch(notifyCameraError(error));
         };
-        console.log("...................__mutePresenterVideo....1763");
+        
         // Check for NO-OP
         if (mute && (!this.localPresenterVideo || this.localPresenterVideo.isMuted())) {
 
@@ -1778,7 +1774,7 @@ export default {
             const { width } = this.localVideo.track.getSettings();
             let desktopResizeConstraints = {};
             let resizeDesktopStream = false;
-            const DESKTOP_STREAM_CAP = 1080; //720 - divyansh
+            const DESKTOP_STREAM_CAP = 720;
 
             // Determine the constraints if the desktop track needs to be resized.
             // Resizing is needed when the resolution cannot be determined or when
@@ -1801,8 +1797,8 @@ export default {
             } else {
                 resizeDesktopStream = true;
                 desktopResizeConstraints = {
-                    width: 1280, //1280 - divyansh
-                    height: 720 //720 - divyansh
+                    width: 1280,
+                    height: 720
                 };
             }
             if (resizeDesktopStream) {
@@ -1857,20 +1853,18 @@ export default {
             return Promise.reject('Switch in progress.');
         }
 
-        console.log("..............._switchToScreenSharing.....");
-
         this.videoSwitchInProgress = true;
 
         return this._createDesktopTrack(options)
             .then(async streams => {
                 const desktopVideoStream = streams.find(stream => stream.getType() === MEDIA_TYPE.VIDEO);
-                console.log(".....222222222222222222222222222222hailmarry.....");
+                
                 if (desktopVideoStream) {
                     await this.useVideoStream(desktopVideoStream);
                 }
 
                 this._desktopAudioStream = streams.find(stream => stream.getType() === MEDIA_TYPE.AUDIO);
-                //_prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(false));
+                
                 if (this._desktopAudioStream) {
                     // If there is a localAudio stream, mix in the desktop audio stream captured by the screen sharing
                     // api.
@@ -1886,7 +1880,6 @@ export default {
                 }
             })
             .then(() => {
-                //this.muteVideo(!this.isLocalVideoMuted(), true);
                 this.videoSwitchInProgress = false;
                 if (config.enableScreenshotCapture) {
 
@@ -2310,7 +2303,6 @@ export default {
                         .then(effect => this.localVideo.setEffect(effect))
                         .then(() => {
                             this.setVideoMuteStatus(false);
-                            //console.log("Where to put flipx................2303");
                             logger.log('switched local video device');
                             this._updateVideoDeviceId();
                         })
@@ -2609,7 +2601,7 @@ export default {
         if (this.localVideo
             && this.localVideo.videoType === 'camera') {
             APP.store.dispatch(updateSettings({
-                cameraDeviceId: this.localVideo.getDeviceId()
+                cameraDeviceId: this.getDeviceId()
             }));
         }
 
@@ -2777,7 +2769,7 @@ export default {
                         sendAnalytics(createTrackMutedEvent(
                             'video',
                             'device list changed'));
-                        logger.log('......................................Video mute: device list changed');
+                        logger.log('Video mute: device list changed');
                         muteLocalVideo(true);
                     }
                 }));

@@ -44,15 +44,6 @@ function computeDesktopVideoSize( // eslint-disable-line max-params
     let availableWidth = Math.max(videoWidth, videoSpaceWidth);
     let availableHeight = Math.max(videoHeight, videoSpaceHeight);
 
-    //console.log("doing something somthing her.......47",videoSpaceWidth,videoSpaceHeight);
-
-    // if (interfaceConfig.VERTICAL_FILMSTRIP) {
-    //     // eslint-disable-next-line no-param-reassign
-    //     videoSpaceWidth -= Filmstrip.getVerticalFilmstripWidth();
-    // } else {
-    //     // eslint-disable-next-line no-param-reassign
-    //     videoSpaceHeight -= Filmstrip.getFilmstripHeight();
-    // }
     
     if (availableWidth / aspectRatio >= videoSpaceHeight) {
         availableHeight = videoSpaceHeight;
@@ -91,9 +82,7 @@ function computeCameraVideoSize( // eslint-disable-line max-params
     }
 
     const aspectRatio = videoWidth / videoHeight;
-    //console.log("doing something somthing here.......94",videoWidth,videoHeight,videoSpaceWidth,videoSpaceHeight,videoLayoutFit);
     //this is where magic happens
-    //work on this - divyansh
 
     switch (videoLayoutFit) {
     case 'height':
@@ -132,7 +121,7 @@ function computeCameraVideoSize( // eslint-disable-line max-params
             height = maxWidth;
             width = height * aspectRatio;
         }
-        //console.log("computeCameraVideoSize.........output","height-->",width," width-->", height);
+
         return [ width, height ];       
     }else{
         //console.log("...................horizontal Screen Dtected");
@@ -334,11 +323,7 @@ export class VideoContainer extends LargeContainer {
                 containerWidth,
                 containerHeight);
         }
-        //console.log("_getVideoSize..............",computeCameraVideoSize(width,
-            // height,
-            // containerWidth,
-            // containerHeight,
-            // interfaceConfig.VIDEO_LAYOUT_FIT));
+
         return computeCameraVideoSize(width,
             height,
             containerWidth,
@@ -358,12 +343,9 @@ export class VideoContainer extends LargeContainer {
      */
     getVideoPosition(width, height, containerWidth, containerHeight) {
         let containerWidthToUse = containerWidth;
-        //console.log("getVideoPosition.............");
+        
         /* eslint-enable max-params */
         if (this.stream && this.isScreenSharing()) {
-            // if (interfaceConfig.VERTICAL_FILMSTRIP) {
-            //     containerWidthToUse -= Filmstrip.getVerticalFilmstripWidth();
-            // }
 
             return getCameraVideoPosition(width,
                 height,
@@ -450,7 +432,6 @@ export class VideoContainer extends LargeContainer {
         }
 
         this._updateBackground();
-        //console.log("something something..........................................");
 
         const { horizontalIndent, verticalIndent }
             = this.getVideoPosition(width, height, containerWidth, containerHeight);

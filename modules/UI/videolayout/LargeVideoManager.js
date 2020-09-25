@@ -325,7 +325,6 @@ export default class LargeVideoManager {
      */
     updateContainerSize() {
         let widthToUse = UIUtil.getAvailableVideoWidth();
-        
         const { isOpen } = APP.store.getState()['features/chat'];
 
         if (isOpen) {
@@ -335,7 +334,7 @@ export default class LargeVideoManager {
              */
             widthToUse -= CHAT_SIZE;
         }
-        logger.log("328 updatecontainersize............",widthToUse,window.innerHeight);
+       
         this.width = widthToUse;
         this.height = window.innerHeight;
     }
@@ -347,7 +346,6 @@ export default class LargeVideoManager {
      */
     resizeContainer(type, animate = false) {
         const container = this.getContainer(type);
-        //console.log("resizeContainer...........",this.width, this.height);
         container.resize(this.width, this.height, animate);
     }
 
@@ -596,7 +594,6 @@ export default class LargeVideoManager {
      * @param val {boolean} true if flipped.
      */
     onLocalFlipXChange(val) {
-        console.log("before or after ");
         this.videoContainer.setLocalFlipX(val);
     }
 

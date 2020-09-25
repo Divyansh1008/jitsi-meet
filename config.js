@@ -96,7 +96,7 @@ var config = {
     // notify the user if there is noise, other than voice, coming from the current
     // selected microphone. The purpose it to let the user know that the input could
     // be potentially unpleasant for other meeting participants.
-    enableNoisyMicDetection: true,
+    enableNoisyMicDetection: false,
 
     // Start the conference in audio only mode (no video is being received nor
     // sent).
@@ -121,7 +121,7 @@ var config = {
     // Video
 
     // Sets the preferred resolution (height) for local video. Defaults to 720.
-    resolution: 1080,
+    resolution: 720,
 
     // How many participants while in the tile view mode, before the receiving video quality is reduced from HD to SD.
     // Use -1 to disable.
@@ -135,15 +135,15 @@ var config = {
     constraints: {
          video: {
              height: {
-                 ideal: 1080,
-                 max: 2160,
-                 min: 1080
+                 ideal: 720,
+                 max: 720,
+                 min: 240
              }
          }
      },
 
     // Enable / disable simulcast support.
-    disableSimulcast: true,
+    disableSimulcast: true, //didn't make this change - dj
 
     // Enable / disable layer suspension.  If enabled, endpoints whose HD
     // layers are not in use will be suspended (no longer sent) until they
