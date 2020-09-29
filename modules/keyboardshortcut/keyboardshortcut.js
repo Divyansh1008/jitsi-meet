@@ -12,6 +12,14 @@ import { toggleDialog } from '../../react/features/base/dialog';
 import { KeyboardShortcutsDialog }
     from '../../react/features/keyboard-shortcuts';
 import { SpeakerStats } from '../../react/features/speaker-stats';
+import {
+    getVideoDeviceIds,
+    setVideoInputDeviceAndUpdateSettings
+} from '../../react/features/base/devices';
+// import { connect } from '../../react/features/base/redux';
+// import { getCurrentCameraDeviceId } from '../../react/features/base/settings';
+// import { toggleVideoSettings } from '../../react/features/settings/actions';
+// import VideoSettingsContent, { type Props as VideoSettingsProps } from '../../react/features/settings/components/web/video/VideoSettingsContent';
 
 const logger = Logger.getLogger(__filename);
 
@@ -47,12 +55,13 @@ const KeyboardShortcut = {
             }
             const key = this._getKeyboardKey(e).toUpperCase();
             const num = parseInt(key, 10);
-
+            console.log(".....................key...............pressed.......keyup.");
             if (!($(':focus').is('input[type=text]')
                 || $(':focus').is('input[type=password]')
                 || $(':focus').is('textarea'))) {
                 if (_shortcuts.has(key)) {
                     _shortcuts.get(key).function(e);
+                    
                 } else if (!isNaN(num) && num >= 0 && num <= 9) {
                     APP.UI.clickOnVideo(num);
                 }
@@ -61,6 +70,7 @@ const KeyboardShortcut = {
         };
 
         window.onkeydown = e => {
+            console.log(".....................key...............pressed.......keydown.");
             if (!enabled) {
                 return;
             }
@@ -97,6 +107,18 @@ const KeyboardShortcut = {
         APP.store.dispatch(toggleDialog(KeyboardShortcutsDialog, {
             shortcutDescriptions: _shortcutsHelp
         }));
+    },
+
+    /**
+    * Maps (parts of) the redux state to the associated {@code VideoSettingsPopup}'s
+    * props.
+    *
+    * @param {Object} state - Redux state.
+    * 
+    */
+    switchToMainCam(state) {
+        console.log("Shortchut is working.....................",this.getVideoDeviceIds(state));
+        
     },
 
     /**
@@ -211,7 +233,10 @@ const KeyboardShortcut = {
                 }));
             }, 'keyboardShortcuts.showSpeakerStats');
         }
-
+        this.registerShortcut('Z', null, () => {
+            //sendAnalytics(createShortcutEvent('help'));
+            this.switchToMainCam();
+        }, 'keyboardShortcuts.toggleShortcuts');
         /**
          * FIXME: Currently focus keys are directly implemented below in
          * onkeyup. They should be moved to the SmallVideo instead.
