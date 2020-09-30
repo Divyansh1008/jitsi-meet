@@ -217,8 +217,9 @@ const KeyboardShortcut = {
         this.registerShortcut('Z', null, () => {
             //sendAnalytics(createShortcutEvent('help'));
             // this shortcut changes the video input to the first device available.
-            console.log("ALL VIDEO INPUTS DATA", APP.store.getState()['features/base/devices'].availableDevices.videoInput);
-            const firstDeviceId = APP.store.getState()['features/base/devices'].availableDevices.videoInput.map(({ deviceId }) => deviceId)[0];
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            const firstDeviceId = availableVideoInputs.map(({ deviceId }) => deviceId)[0];
             console.log(firstDeviceId);
             APP.store.dispatch(setVideoInputDevice(firstDeviceId));
         }, 'keyboardShortcuts.toggleShortcuts');
