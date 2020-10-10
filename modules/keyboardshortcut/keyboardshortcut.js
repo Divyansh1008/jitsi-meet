@@ -12,6 +12,9 @@ import { toggleDialog } from '../../react/features/base/dialog';
 import { KeyboardShortcutsDialog }
     from '../../react/features/keyboard-shortcuts';
 import { SpeakerStats } from '../../react/features/speaker-stats';
+import {
+    setVideoInputDevice
+} from '../../react/features/base/devices';
 
 const logger = Logger.getLogger(__filename);
 
@@ -47,12 +50,12 @@ const KeyboardShortcut = {
             }
             const key = this._getKeyboardKey(e).toUpperCase();
             const num = parseInt(key, 10);
-
             if (!($(':focus').is('input[type=text]')
                 || $(':focus').is('input[type=password]')
                 || $(':focus').is('textarea'))) {
                 if (_shortcuts.has(key)) {
                     _shortcuts.get(key).function(e);
+
                 } else if (!isNaN(num) && num >= 0 && num <= 9) {
                     APP.UI.clickOnVideo(num);
                 }
@@ -211,7 +214,15 @@ const KeyboardShortcut = {
                 }));
             }, 'keyboardShortcuts.showSpeakerStats');
         }
-
+        this.registerShortcut('Z', null, () => {
+            //sendAnalytics(createShortcutEvent('help'));
+            // this shortcut changes the video input to the first device available.
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            const firstDeviceId = availableVideoInputs.map(({ deviceId }) => deviceId)[0];
+            console.log(firstDeviceId);
+            APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+        }, 'keyboardShortcuts.toggleShortcuts');
         /**
          * FIXME: Currently focus keys are directly implemented below in
          * onkeyup. They should be moved to the SmallVideo instead.
