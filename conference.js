@@ -1648,11 +1648,11 @@ export default {
         if (toggle) {
             try {
                 await this._switchToScreenSharing(options);
-
+                APP.UI.emitEvent(UIEvents.VIDEO_MUTED, false, true);
                 return;
             } catch (err) {
                 logger.error('Failed to switch to screensharing', err);
-
+                
                 return;
             }
         }
