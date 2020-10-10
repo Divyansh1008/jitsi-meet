@@ -143,7 +143,7 @@ var config = {
      },
 
     // Enable / disable simulcast support.
-    disableSimulcast: true, //didn't make this change - dj
+    disableSimulcast: false, //didn't make this change - dj
 
     // Enable / disable layer suspension.  If enabled, endpoints whose HD
     // layers are not in use will be suspended (no longer sent) until they
@@ -307,7 +307,7 @@ var config = {
 
     // Use the TURN servers discovered via XEP-0215 for the jitsi-videobridge
     // connection
-    // useStunTurn: true,
+    useStunTurn: true,
 
     // Use TURN/UDP servers for the jitsi-videobridge connection (by default
     // we filter out TURN/UDP because it is usually not needed since the
@@ -417,13 +417,13 @@ var config = {
         enabled: true,
 
         // Use XEP-0215 to fetch STUN and TURN servers.
-        // useStunTurn: true,
+        useStunTurn: true,
 
         // The STUN servers that will be used in the peer to peer connections
         stunServers: [
 
             // { urls: 'stun:jitsi-meet.example.com:3478' },
-            { urls: 'stun:meet-jit-si-turnrelay.jitsi.net:443' }
+            { urls: 'stun:jitsi-turn-dpt.centralindia.cloudapp.azure.com:443' }
         ]
 
         // Sets the ICE transport policy for the p2p connection. At the time
@@ -436,7 +436,7 @@ var config = {
 
         // If set to true, it will prefer to use H.264 for P2P calls (if H.264
         // is supported).
-        // preferH264: true
+        preferH264: true
 
         // If set to true, disable H.264 video codec by stripping it out of the
         // SDP.
