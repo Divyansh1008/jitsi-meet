@@ -199,9 +199,7 @@ class Conference extends AbstractConference<Props, *> {
 
                 <Notice />
                 <div id = 'videospace'>
-                    <div id='experiment123456789' >
                     <LargeVideo />
-                    </div>
                     <KnockingParticipantList />
                     <Filmstrip filmstripOnly = { filmstripOnly } />
                     { hideLabels || <Labels /> }
