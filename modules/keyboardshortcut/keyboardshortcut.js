@@ -50,12 +50,12 @@ const KeyboardShortcut = {
             }
             const key = this._getKeyboardKey(e).toUpperCase();
             const num = parseInt(key, 10);
+
             if (!($(':focus').is('input[type=text]')
                 || $(':focus').is('input[type=password]')
                 || $(':focus').is('textarea'))) {
                 if (_shortcuts.has(key)) {
                     _shortcuts.get(key).function(e);
-
                 } else if (!isNaN(num) && num >= 0 && num <= 9) {
                     APP.UI.clickOnVideo(num);
                 }

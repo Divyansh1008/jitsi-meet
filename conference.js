@@ -651,7 +651,7 @@ export default {
                         // only failed, we assume that there are some problems
                         // with user's microphone and show corresponding dialog.
                         APP.store.dispatch(notifyMicError(audioOnlyError));
-                        APP.store.dispatch(notifyCameraError(videoOnlyError));    //divyansh
+                        APP.store.dispatch(notifyCameraError(videoOnlyError));
                     } else {
                         // If request for 'audio' + 'video' failed, but request
                         // for 'audio' only was OK, we assume that we had
@@ -934,13 +934,14 @@ export default {
 
             return;
         }
-        
+
         if (this.isSharingScreen) {
             // Chain _mutePresenterVideo calls
             _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
+            
             return;
         }
-        
+
         // If not ready to modify track's state yet adjust the base/media
         if (!this._localTracksInitialized) {
             // This will only modify base/media.video.muted which is then synced
@@ -1648,11 +1649,12 @@ export default {
         if (toggle) {
             try {
                 await this._switchToScreenSharing(options);
+                //To automatically switch to presenter mode upon pressing screen share button
                 APP.UI.emitEvent(UIEvents.VIDEO_MUTED, false, true);
                 return;
             } catch (err) {
                 logger.error('Failed to switch to screensharing', err);
-                
+
                 return;
             }
         }
@@ -1758,7 +1760,7 @@ export default {
         const maybeShowErrorDialog = error => {
             APP.store.dispatch(notifyCameraError(error));
         };
-        
+
         // Check for NO-OP
         if (mute && (!this.localPresenterVideo || this.localPresenterVideo.isMuted())) {
 
@@ -1858,13 +1860,13 @@ export default {
         return this._createDesktopTrack(options)
             .then(async streams => {
                 const desktopVideoStream = streams.find(stream => stream.getType() === MEDIA_TYPE.VIDEO);
-                
+
                 if (desktopVideoStream) {
                     await this.useVideoStream(desktopVideoStream);
                 }
 
                 this._desktopAudioStream = streams.find(stream => stream.getType() === MEDIA_TYPE.AUDIO);
-                
+
                 if (this._desktopAudioStream) {
                     // If there is a localAudio stream, mix in the desktop audio stream captured by the screen sharing
                     // api.
@@ -1882,7 +1884,6 @@ export default {
             .then(() => {
                 this.videoSwitchInProgress = false;
                 if (config.enableScreenshotCapture) {
-
                     APP.store.dispatch(toggleScreenshotCaptureEffect(true));
                 }
                 sendAnalytics(createScreenSharingEvent('started'));
@@ -1907,9 +1908,6 @@ export default {
                 // asynchronous, but does not return a Promise and is not part
                 // of the current Promise chain.
                 this._handleScreenSharingError(error);
-
-                console.log(".....hailmarry.....");
-                //_prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
 
                 return Promise.reject(error);
             });
@@ -2320,7 +2318,6 @@ export default {
                     // FIXME JitsiLocalTrack.dispose is async and should be waited for
                     this.localPresenterVideo && this.localPresenterVideo.dispose();
                     this.localPresenterVideo = null;
-                    //console.log("Where to put flipx................2321");
                     this._createPresenterStreamEffect(height, cameraDeviceId);
 
                 // if there is only video, switch to the new camera stream.
