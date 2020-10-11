@@ -50,12 +50,12 @@ const KeyboardShortcut = {
             }
             const key = this._getKeyboardKey(e).toUpperCase();
             const num = parseInt(key, 10);
+
             if (!($(':focus').is('input[type=text]')
                 || $(':focus').is('input[type=password]')
                 || $(':focus').is('textarea'))) {
                 if (_shortcuts.has(key)) {
                     _shortcuts.get(key).function(e);
-
                 } else if (!isNaN(num) && num >= 0 && num <= 9) {
                     APP.UI.clickOnVideo(num);
                 }
@@ -217,10 +217,27 @@ const KeyboardShortcut = {
         this.registerShortcut('Z', null, () => {
             //sendAnalytics(createShortcutEvent('help'));
             // this shortcut changes the video input to the first device available.
+            var camIndex = 0;
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
             console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            availableVideoInputs.map((data, i) => {console.log(data, i);
+                data.label});
+            var str = availableVideoInputs.map(({ label }) => label)[0];
+            var n = str.includes("930");
+            console.log("......................!!!!............", availableVideoInputs.map(({ label }) => label),n);
+            availableVideoInputs.map(({ label }) => label).forEach();
             const firstDeviceId = availableVideoInputs.map(({ deviceId }) => deviceId)[0];
-            console.log(firstDeviceId);
+            //console.log(firstDeviceId);
+            APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+        }, 'keyboardShortcuts.toggleShortcuts');
+        this.registerShortcut('X', null, () => {
+            //sendAnalytics(createShortcutEvent('help'));
+            // this shortcut changes the video input to the first device available.
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            console.log("......................!!!!............", availableVideoInputs.map(({ label }) => label)[1]);
+            const firstDeviceId = availableVideoInputs.map(({ deviceId }) => deviceId)[1];
+            //thconsole.log(firstDeviceId);
             APP.store.dispatch(setVideoInputDevice(firstDeviceId));
         }, 'keyboardShortcuts.toggleShortcuts');
         /**

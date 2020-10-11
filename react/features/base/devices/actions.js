@@ -276,7 +276,6 @@ export function setVideoInputDevice(deviceId) {
 export function setVideoInputDeviceAndUpdateSettings(deviceId) {
     return function(dispatch, getState) {
         const deviceLabel = getDeviceLabelById(getState(), deviceId, 'videoInput');
-        console.log(".......finally changed the camera..........");
         dispatch(setVideoInputDevice(deviceId));
         dispatch(updateSettings({
             userSelectedCameraDeviceId: deviceId,

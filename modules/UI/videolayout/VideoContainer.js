@@ -343,7 +343,7 @@ export class VideoContainer extends LargeContainer {
      */
     getVideoPosition(width, height, containerWidth, containerHeight) {
         let containerWidthToUse = containerWidth;
-        
+
         /* eslint-enable max-params */
         if (this.stream && this.isScreenSharing()) {
 

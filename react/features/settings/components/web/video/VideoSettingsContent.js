@@ -118,11 +118,10 @@ class VideoSettingsContent extends Component<Props, State> {
      * @param {string} deviceId - The id of the camera device.
      * @returns {Function}
      */
-    _onEntryClick(deviceId,label) {
+    _onEntryClick(deviceId) {
         return () => {
             this.props.setVideoInputDevice(deviceId);
             this.props.toggleVideoSettings();
-            console.log("abcdefghijklomnopqrstuvwxyz",deviceId,label);
         };
     }
 
@@ -155,11 +154,11 @@ class VideoSettingsContent extends Component<Props, State> {
             key
         };
         const label = jitsiTrack && jitsiTrack.getTrackLabel();
-        
+
         if (isSelected) {
             props.className = `${className} video-preview-entry--selected`;
         } else {
-            props.onClick = this._onEntryClick(deviceId,label);
+            props.onClick = this._onEntryClick(deviceId);
         }
 
         return (
