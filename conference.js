@@ -2054,7 +2054,7 @@ export default {
                 }
             }
 
-            APP.UI.setAudioLevel(id, newLvl);
+            //APP.UI.setAudioLevel(id, newLvl);
         });
 
         room.on(JitsiConferenceEvents.TRACK_MUTE_CHANGED, (track, participantThatMutedUs) => {

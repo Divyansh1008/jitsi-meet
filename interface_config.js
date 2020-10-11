@@ -72,6 +72,9 @@ var interfaceConfig = {
      */
     DISABLE_RINGING: false,
 
+    // To hide filmstrip
+    SET_FILMSTRIP_ENABLED: true,
+
     /**
      * Whether the speech to text transcription subtitles panel is disabled.
      * If {@code undefined}, defaults to {@code false}.

@@ -161,7 +161,10 @@ UI.start = function() {
         $('body').addClass('desktop-browser');
     }
 
-    if (interfaceConfig.filmStripOnly) {
+    
+    if (!interfaceConfig.SET_FILMSTRIP_ENABLED) {
+        $('.filmstrip').hide();
+    } else if (interfaceConfig.filmStripOnly) {
         $('body').addClass('filmstrip-only');
         APP.store.dispatch(setNotificationsEnabled(false));
     } else if (config.iAmRecorder) {
@@ -492,7 +495,7 @@ UI.handleLastNEndpoints = function(leavingIds, enteringIds) {
  * @param {string} id user id
  * @param {number} lvl audio level
  */
-UI.setAudioLevel = (id, lvl) => VideoLayout.setAudioLevel(id, lvl);
+//UI.setAudioLevel = (id, lvl) => VideoLayout.setAudioLevel(id, lvl);
 
 /**
  * Hide connection quality statistics from UI.
