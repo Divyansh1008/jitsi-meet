@@ -117,23 +117,25 @@ export default class JitsiStreamPresenterEffect {
         this._canvas2.width = parseInt(width, 10);
         this._canvas2.height = parseInt(height, 10);
         //console.log(height, width);
-        this._ctx2.translate(0, this._canvas2.height);
-        this._ctx2.scale(1, -1);
-        this._ctx1.rotate(-Math.PI/2);
+
+        this._ctx.drawImage(this._videoElement, 0, 0, this._videoElement.width, this._videoElement.height);
+        //this._ctx2.translate(0, this._canvas2.height);
+        //this._ctx2.scale(1, -1);
+        this._ctx.rotate(-Math.PI/2);
         //console.log(this._canvas.width);
-        this._ctx1.translate(-this._canvas.height,0);
+        this._ctx.translate(-this._canvas.height,0);
 
         // this._ctx2.rotate(Math.PI);
         // this._ctx2.translate(-this._canvas2.width,-this._canvas2.height);
         
 
         //Following two lines should be used to adjust individual sizes of the two components
-        this._ctx1.drawImage(this._desktopElement, 0, 0, this._canvas.height, (this._canvas.height*9/16)); //(width,height) due to rotation
+        this._ctx.drawImage(this._desktopElement, 0, 0, this._canvas.height, (this._canvas.height*9/16)); //(width,height) due to rotation
         
-        this._ctx2.drawImage(this._videoElement, 0, 0, this._videoElement.width, this._videoElement.height);
+        //this._ctx.drawImage(this._videoElement, 0, 0, this._videoElement.width, this._videoElement.height);
         
-        this._ctx.drawImage(this._canvas2, 0, 0, this._canvas.width, this._canvas.height);
-        this._ctx.drawImage(this._canvas1, 0, 0, this._canvas1.width, this._canvas1.height);
+        //this._ctx.drawImage(this._canvas2, 0, 0, this._canvas.width, this._canvas.height);
+        //this._ctx.drawImage(this._canvas1, 0, 0, this._canvas1.width, this._canvas1.height);
 
 
         /*
@@ -168,8 +170,8 @@ export default class JitsiStreamPresenterEffect {
         this._ctx.beginPath();
         this._ctx.lineWidth = 2;
         this._ctx.strokeStyle = '#A9A9A9'; // dark grey
-        this._ctx.rect(this._canvas.width - this._videoElement.width, this._canvas.height - this._videoElement.height,
-            this._videoElement.width, this._videoElement.height);
+        // this._ctx.rect(this._canvas.width - this._videoElement.width, this._canvas.height - this._videoElement.height,
+        //     this._videoElement.width, this._videoElement.height);
         this._ctx.stroke();
     }
 
