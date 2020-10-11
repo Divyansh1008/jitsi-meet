@@ -938,7 +938,7 @@ export default {
         if (this.isSharingScreen) {
             // Chain _mutePresenterVideo calls
             _prevMutePresenterVideo = _prevMutePresenterVideo.then(() => this._mutePresenterVideo(mute));
-            
+
             return;
         }
 

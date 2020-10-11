@@ -334,7 +334,7 @@ export default class LargeVideoManager {
              */
             widthToUse -= CHAT_SIZE;
         }
-       
+
         this.width = widthToUse;
         this.height = window.innerHeight;
     }
@@ -346,6 +346,7 @@ export default class LargeVideoManager {
      */
     resizeContainer(type, animate = false) {
         const container = this.getContainer(type);
+
         container.resize(this.width, this.height, animate);
     }
 
