@@ -95,6 +95,17 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
     } = state['features/base/config'];
     const constraints = options.constraints ?? state['features/base/config'].constraints;
 
+    const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+    const selectedDevice = availableVideoInputs.filter( (obj) => obj.deviceId === cameraDeviceId)[0];
+    const isHorizontalCamera = selectedDevice && selectedDevice.label.includes('930');
+
+    if (state['features/base/settings'].displayName === 'Doctor' || isHorizontalCamera) {
+        constraints.video.width.ideal = 360;
+        constraints.video.height.ideal = 640;
+        constraints.video.aspectRatio = 9 / 16;
+    }
+
+
     return (
         loadEffects(store).then(effectsArray => {
             // Filter any undefined values returned by Promise.resolve().

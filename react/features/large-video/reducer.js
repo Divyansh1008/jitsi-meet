@@ -4,7 +4,7 @@ import { PARTICIPANT_ID_CHANGED } from '../base/participants';
 import { ReducerRegistry } from '../base/redux';
 
 import {
-    SELECT_LARGE_VIDEO_PARTICIPANT,
+    SELECT_LARGE_VIDEO_PARTICIPANT, UPDATE_KNOWN_LARGE_VIDEO_ASPECT_RATIO,
     UPDATE_KNOWN_LARGE_VIDEO_RESOLUTION
 } from './actionTypes';
 
@@ -35,6 +35,11 @@ ReducerRegistry.register('features/large-video', (state = {}, action) => {
         return {
             ...state,
             resolution: action.resolution
+        };
+    case UPDATE_KNOWN_LARGE_VIDEO_ASPECT_RATIO:
+        return {
+            ...state,
+            aspectRatio: action.aspectRatio
         };
     }
 

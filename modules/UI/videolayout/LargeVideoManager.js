@@ -14,7 +14,8 @@ import {
 import { VIDEO_TYPE } from '../../../react/features/base/media';
 import { CHAT_SIZE } from '../../../react/features/chat';
 import {
-    updateKnownLargeVideoResolution
+    updateKnownLargeVideoResolution,
+    updateKnownLargeVideoAspectRatio
 } from '../../../react/features/large-video';
 import { PresenceLabel } from '../../../react/features/presence-status';
 /* eslint-enable no-unused-vars */
@@ -616,6 +617,7 @@ export default class LargeVideoManager {
         const currentAspectRatio = height === 0 ? 0 : width / height;
 
         if (this._videoAspectRatio !== currentAspectRatio) {
+            APP.store.dispatch(updateKnownLargeVideoAspectRatio(currentAspectRatio));
             this._videoAspectRatio = currentAspectRatio;
             this.resize();
         }

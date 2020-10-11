@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 
 import { Watermarks } from '../../base/react';
 import { connect } from '../../base/redux';
+import logger from '../../base/redux/logger';
 import { InviteMore, Subject } from '../../conference';
 import { fetchCustomBrandingData } from '../../dynamic-branding';
 import { Captions } from '../../subtitles/';
-import logger from '../../base/redux/logger';
 
 declare var interfaceConfig: Object;
 
@@ -37,7 +37,9 @@ type Props = {
      * Used to determine the value of the autoplay attribute of the underlying
      * video element.
      */
-    _noAutoPlayVideo: boolean
+    _noAutoPlayVideo: boolean,
+
+    _aspectRatio: number
 }
 
 /**
@@ -65,40 +67,51 @@ class LargeVideo extends Component<Props> {
     render() {
         const style = this._getCustomSyles();
         const className = `videocontainer${this.props._isChatOpen ? ' shift-right' : ''}`;
-        //console.log("is this where magic happens?");
+
+        // console.log("is this where magic happens?");
         const rot = {
-            transform: `rotate(90deg)`,
-            //Rotating here........
-            //width: '1080px'
-          };
-        if(window.innerHeight>window.innerWidth){
-            //console.log(".....................Vertical render");
-        return (
-            <div
-                className = { className }
-                id = 'largeVideoContainer'
-                style = { style }>
-                <Subject />
-                <InviteMore />
-                <div id = 'sharedVideo'>
-                    <div id = 'sharedVideoIFrame' />
-                </div>
-                <div id = 'etherpad' />
+            transform: 'rotate(90deg)'
 
-                <Watermarks />
+            // Rotating here........
+            // width: '1080px'
+        };
 
-                <div id = 'dominantSpeaker'>
-                    <div className = 'dynamic-shadow' />
-                    <div id = 'dominantSpeakerAvatarContainer' />
-                </div>
-                <div id = 'remotePresenceMessage' />
-                <span id = 'remoteConnectionMessage' />
-                <div id = 'largeVideoElementsContainer'>
-                    <div id = 'largeVideoBackgroundContainer' />
-                    
+        const rotateStyle = {
+            transform: 'rotate(0deg)'
+        };
 
-                    { 
-                    /*
+        if (this.props._aspectRatio < 1.5) {
+            rotateStyle.transform = 'rotate(180deg)';
+        }
+
+        if (window.innerHeight > window.innerWidth) {
+            // console.log(".....................Vertical render");
+            return (
+                <div
+                    className = { className }
+                    id = 'largeVideoContainer'
+                    style = { style }>
+                    <Subject />
+                    <InviteMore />
+                    <div id = 'sharedVideo'>
+                        <div id = 'sharedVideoIFrame' />
+                    </div>
+                    <div id = 'etherpad' />
+
+                    <Watermarks />
+
+                    <div id = 'dominantSpeaker'>
+                        <div className = 'dynamic-shadow' />
+                        <div id = 'dominantSpeakerAvatarContainer' />
+                    </div>
+                    <div id = 'remotePresenceMessage' />
+                    <span id = 'remoteConnectionMessage' />
+                    <div id = 'largeVideoElementsContainer'>
+                        <div id = 'largeVideoBackgroundContainer' />
+
+
+                        {
+                            /*
                       * FIXME: the architecture of elements related to the large
                       * video and the naming. The background is not part of
                       * largeVideoWrapper because we are controlling the size of
@@ -106,22 +119,27 @@ class LargeVideo extends Component<Props> {
                       * another container for the background and the
                       * largeVideoWrapper in order to hide/show them.
                       */}
-                    <div id = 'largeVideoWrapper'  style ={rot}>
-                        
+                        <div
+                            id = 'largeVideoWrapper'
+                            style = { rot }>
+
                             <video
+                                style={rotateStyle}
                                 autoPlay = { !this.props._noAutoPlayVideo }
                                 id = 'largeVideo'
                                 muted = { true }
                                 playsInline = { true } /* for Safari on iOS to work */ />
-                        
+
+                        </div>
                     </div>
-                </div>
-                { interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES
+                    { interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES
                     || <Captions /> }
-            </div>
-        );
-    }else{
-        //console.log(".....................horizontal render");
+                </div>
+            );
+        }
+
+
+        // console.log(".....................horizontal render");
         return (
             <div
                 className = { className }
@@ -144,9 +162,9 @@ class LargeVideo extends Component<Props> {
                 <span id = 'remoteConnectionMessage' />
                 <div id = 'largeVideoElementsContainer'>
                     <div id = 'largeVideoBackgroundContainer' />
-                    
 
-                    { 
+
+                    {
                     /*
                       * FIXME: the architecture of elements related to the large
                       * video and the naming. The background is not part of
@@ -156,21 +174,22 @@ class LargeVideo extends Component<Props> {
                       * largeVideoWrapper in order to hide/show them.
                       */}
                     <div id = 'largeVideoWrapper' >
-                        
-                            <video
-                                autoPlay = { !this.props._noAutoPlayVideo }
-                                id = 'largeVideo'
-                                muted = { true }
-                                playsInline = { true } /* for Safari on iOS to work */ />
-                        
+
+                        <video
+                            style={rotateStyle}
+                            autoPlay = { !this.props._noAutoPlayVideo }
+                            id = 'largeVideo'
+                            muted = { true }
+                            playsInline = { true } /* for Safari on iOS to work */ />
+
                     </div>
                 </div>
                 { interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES
                     || <Captions /> }
             </div>
         );
+
     }
-}
 
     /**
      * Creates the custom styles object.
@@ -205,11 +224,13 @@ function _mapStateToProps(state) {
     const testingConfig = state['features/base/config'].testing;
     const { backgroundColor, backgroundImageUrl } = state['features/dynamic-branding'];
     const { isOpen: isChatOpen } = state['features/chat'];
+    const { aspectRatio } = state['features/large-video'];
 
     return {
         _customBackgroundColor: backgroundColor,
         _customBackgroundImageUrl: backgroundImageUrl,
         _isChatOpen: isChatOpen,
+        _aspectRatio: aspectRatio,
         _noAutoPlayVideo: testingConfig?.noAutoPlayVideo
     };
 }
