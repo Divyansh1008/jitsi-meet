@@ -651,7 +651,7 @@ export default {
                         // only failed, we assume that there are some problems
                         // with user's microphone and show corresponding dialog.
                         APP.store.dispatch(notifyMicError(audioOnlyError));
-                        APP.store.dispatch(notifyCameraError(videoOnlyError));
+                        APP.store.dispatch(notifyCameraError(videoOnlyError));    //divyansh
                     } else {
                         // If request for 'audio' + 'video' failed, but request
                         // for 'audio' only was OK, we assume that we had
@@ -2345,7 +2345,8 @@ export default {
                         logger.log('switched local video device');
                         this._updateVideoDeviceId();
                     })
-                    .catch(err => APP.store.dispatch(notifyCameraError(err)));
+                    //.catch(err => APP.store.dispatch(notifyCameraError(err + "abcdefg")));
+                    .catch();
                 }
             }
         );
@@ -2600,9 +2601,11 @@ export default {
     _updateVideoDeviceId() {
         if (this.localVideo
             && this.localVideo.videoType === 'camera') {
-            APP.store.dispatch(updateSettings({
+            try{
+                APP.store.dispatch(updateSettings({
                 cameraDeviceId: this.getDeviceId()
-            }));
+            }))}
+            catch{console.log("uncaught error")};
         }
 
         // If screenshare is in progress, get the device id from the presenter track.
