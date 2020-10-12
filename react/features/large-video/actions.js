@@ -14,7 +14,8 @@ import { shouldDisplayTileView } from '../video-layout';
 
 import {
     SELECT_LARGE_VIDEO_PARTICIPANT,
-    UPDATE_KNOWN_LARGE_VIDEO_RESOLUTION
+    UPDATE_KNOWN_LARGE_VIDEO_RESOLUTION,
+    UPDATE_KNOWN_LARGE_VIDEO_ASPECT_RATIO
 } from './actionTypes';
 
 declare var APP: Object;
@@ -85,6 +86,13 @@ export function updateKnownLargeVideoResolution(resolution: number) {
     return {
         type: UPDATE_KNOWN_LARGE_VIDEO_RESOLUTION,
         resolution
+    };
+}
+
+export function updateKnownLargeVideoAspectRatio(aspectRatio: number) {
+    return {
+        type: UPDATE_KNOWN_LARGE_VIDEO_ASPECT_RATIO,
+        aspectRatio
     };
 }
 
