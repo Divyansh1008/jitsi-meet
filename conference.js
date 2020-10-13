@@ -489,6 +489,7 @@ export default {
         const initialDevices = [ 'audio' ];
         const requestedAudio = true;
         let requestedVideo = false;
+        console.log(">>>>>>>>>>11111111111111111>>>>>>>>>>>>>>");
 
         // Always get a handle on the audio input device so that we have statistics even if the user joins the
         // conference muted. Previous implementation would only acquire the handle when the user first unmuted,
@@ -548,6 +549,7 @@ export default {
             // Resolve with no tracks
             tryCreateLocalTracks = Promise.resolve([]);
         } else {
+            console.log(">>>>>>>>>>>>>>>>>>>2222222>>>>>",initialDevices);
             tryCreateLocalTracks = createLocalTracksF({ devices: initialDevices }, true)
                 .catch(err => {
                     if (requestedAudio && requestedVideo) {

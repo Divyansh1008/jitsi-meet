@@ -86,25 +86,34 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
             micDeviceId = getUserSelectedMicDeviceId(state);
         }
     }
-
     const state = store.getState();
     const {
         desktopSharingFrameRate,
         firefox_fake_device, // eslint-disable-line camelcase
         resolution
     } = state['features/base/config'];
+    
+    //Do we need to call constraints and availableVideoInputs again??
     const constraints = options.constraints ?? state['features/base/config'].constraints;
-
+    //FIX ME : should choose the active camera instead of zeroth indexed device and move this logic to conference.js create initial tracks
     const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
-    const selectedDevice = availableVideoInputs.filter( (obj) => obj.deviceId === cameraDeviceId)[0];
-    const isHorizontalCamera = selectedDevice && selectedDevice.label.includes('930');
-
-    if (state['features/base/settings'].displayName === 'Doctor' || isHorizontalCamera) {
-        constraints.video.width.ideal = 360;
-        constraints.video.height.ideal = 640;
-        constraints.video.aspectRatio = 9 / 16;
+    var isLogitechCamera = false;
+    availableVideoInputs.map((data) => {
+        if(data.label.includes('930')){
+            const firstDeviceId = data.deviceId;
+            if (state['features/base/settings'].displayName === 'Doctor'){
+                cameraDeviceId = firstDeviceId;
+            }
+            isLogitechCamera = true;
+         }
+    });
+    //console.log(">>>>>>>>>>>>>>>>",state['features/base/settings'].displayName);
+    // Crop if username doctor is not using the Logitech C930 webcam
+    if (state['features/base/settings'].displayName === 'Doctor' && !isLogitechCamera) {
+        constraints.video.width.ideal = 640;
+        constraints.video.height.ideal = 720;
+        constraints.video.aspectRatio = 640 / 720;
     }
-
 
     return (
         loadEffects(store).then(effectsArray => {

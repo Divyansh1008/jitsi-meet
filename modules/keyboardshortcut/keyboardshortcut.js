@@ -215,30 +215,33 @@ const KeyboardShortcut = {
             }, 'keyboardShortcuts.showSpeakerStats');
         }
         this.registerShortcut('Z', null, () => {
-            //sendAnalytics(createShortcutEvent('help'));
-            // this shortcut changes the video input to the first device available.
-            var camIndex = 0;
-            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
-            console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
-            availableVideoInputs.map((data, i) => {console.log(data, i);
-                data.label});
-            var str = availableVideoInputs.map(({ label }) => label)[0];
-            var n = str.includes("930");
-            console.log("......................!!!!............", availableVideoInputs.map(({ label }) => label),n);
-            availableVideoInputs.map(({ label }) => label).forEach();
-            const firstDeviceId = availableVideoInputs.map(({ deviceId }) => deviceId)[0];
-            //console.log(firstDeviceId);
-            APP.store.dispatch(setVideoInputDevice(firstDeviceId));
-        }, 'keyboardShortcuts.toggleShortcuts');
-        this.registerShortcut('X', null, () => {
-            //sendAnalytics(createShortcutEvent('help'));
-            // this shortcut changes the video input to the first device available.
+            // this shortcut changes the video input Logitech C930 webcam.
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
             //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
-            console.log("......................!!!!............", availableVideoInputs.map(({ label }) => label)[1]);
-            const firstDeviceId = availableVideoInputs.map(({ deviceId }) => deviceId)[1];
-            //thconsole.log(firstDeviceId);
-            APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+            availableVideoInputs.map((data, i) => {
+                if(data.label.includes('930')){
+                    console.log(data.label.includes('930'), i);
+                    const firstDeviceId = data.deviceId;
+                    console.log(firstDeviceId);
+                    APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                }
+            });
+        }, 'keyboardShortcuts.toggleShortcuts');
+        this.registerShortcut('X', null, () => {
+            // this shortcut changes the video input to the first device available.
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            //const abcd = APP.store.getState();
+            //console.log(abcd);
+            //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            //TODO : write better cycling logic
+            availableVideoInputs.map((data, i) => {
+                if(!data.label.includes('930')){
+                    console.log(data.label.includes('930'), i);
+                    const firstDeviceId = data.deviceId;
+                    console.log(firstDeviceId);
+                    APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                }
+            });
         }, 'keyboardShortcuts.toggleShortcuts');
         /**
          * FIXME: Currently focus keys are directly implemented below in

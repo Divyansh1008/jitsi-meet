@@ -68,7 +68,7 @@ class LargeVideo extends Component<Props> {
         const style = this._getCustomSyles();
         const className = `videocontainer${this.props._isChatOpen ? ' shift-right' : ''}`;
 
-        // console.log("is this where magic happens?");
+        //console.log("is this where magic happens.........?",this.props._aspectRatio);
         const rot = {
             transform: 'rotate(90deg)'
 
@@ -76,16 +76,16 @@ class LargeVideo extends Component<Props> {
             // width: '1080px'
         };
 
-        const rotateStyle = {
+        var rotateStyle = {
             transform: 'rotate(0deg)'
         };
-
-        if (this.props._aspectRatio < 1.5) {
-            rotateStyle.transform = 'rotate(180deg)';
-        }
-
         if (window.innerHeight > window.innerWidth) {
-            // console.log(".....................Vertical render");
+        if (this.props._aspectRatio > 1.5) {
+            console.log("..................",this.props._aspectRatio);
+            rotateStyle.transform = 'rotate(90deg)';
+        }
+    }
+            //console.log(".....................Vertical render");
             return (
                 <div
                     className = { className }
@@ -121,10 +121,10 @@ class LargeVideo extends Component<Props> {
                       */}
                         <div
                             id = 'largeVideoWrapper'
-                            style = { rot }>
+                            style={rotateStyle}>
 
                             <video
-                                style={rotateStyle}
+                                
                                 autoPlay = { !this.props._noAutoPlayVideo }
                                 id = 'largeVideo'
                                 muted = { true }
@@ -139,57 +139,8 @@ class LargeVideo extends Component<Props> {
         }
 
 
-        // console.log(".....................horizontal render");
-        return (
-            <div
-                className = { className }
-                id = 'largeVideoContainer'
-                style = { style }>
-                <Subject />
-                <InviteMore />
-                <div id = 'sharedVideo'>
-                    <div id = 'sharedVideoIFrame' />
-                </div>
-                <div id = 'etherpad' />
-
-                <Watermarks />
-
-                <div id = 'dominantSpeaker'>
-                    <div className = 'dynamic-shadow' />
-                    <div id = 'dominantSpeakerAvatarContainer' />
-                </div>
-                <div id = 'remotePresenceMessage' />
-                <span id = 'remoteConnectionMessage' />
-                <div id = 'largeVideoElementsContainer'>
-                    <div id = 'largeVideoBackgroundContainer' />
-
-
-                    {
-                    /*
-                      * FIXME: the architecture of elements related to the large
-                      * video and the naming. The background is not part of
-                      * largeVideoWrapper because we are controlling the size of
-                      * the video through largeVideoWrapper. That's why we need
-                      * another container for the background and the
-                      * largeVideoWrapper in order to hide/show them.
-                      */}
-                    <div id = 'largeVideoWrapper' >
-
-                        <video
-                            style={rotateStyle}
-                            autoPlay = { !this.props._noAutoPlayVideo }
-                            id = 'largeVideo'
-                            muted = { true }
-                            playsInline = { true } /* for Safari on iOS to work */ />
-
-                    </div>
-                </div>
-                { interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES
-                    || <Captions /> }
-            </div>
-        );
-
-    }
+        
+    
 
     /**
      * Creates the custom styles object.
