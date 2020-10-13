@@ -107,9 +107,10 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
             isLogitechCamera = true;
          }
     });
-    //console.log(">>>>>>>>>>>>>>>>",state['features/base/settings'].displayName);
+    console.log(">>>>>>>>>>>>>>>>",state['features/base/settings'].displayName);
     // Crop if username doctor is not using the Logitech C930 webcam
     if (state['features/base/settings'].displayName === 'Doctor' && !isLogitechCamera) {
+        console.log(">>>>>>>>>>Should be printed");
         constraints.video.width.ideal = 640;
         constraints.video.height.ideal = 720;
         constraints.video.aspectRatio = 640 / 720;
