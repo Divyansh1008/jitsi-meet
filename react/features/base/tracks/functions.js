@@ -111,10 +111,11 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
     // Crop if username doctor is not using the Logitech C930 webcam
     //if (state['features/base/settings'].displayName === 'Doctor' && !isLogitechCamera) {
     if (window.innerHeight < window.innerWidth && !isLogitechCamera) {
-        console.log(">>>>>>>>>>Should be printed");
+        try{console.log(">>>>>>>>>>Should be printed");
         constraints.video.width.ideal = 640;
         constraints.video.height.ideal = 720;
         constraints.video.aspectRatio = 640 / 720;
+        }catch(err){console.log("error error error")};
     }
 
     return (
