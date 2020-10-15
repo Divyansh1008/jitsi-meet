@@ -115,7 +115,7 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
         constraints.video.width.ideal = 640;
         constraints.video.height.ideal = 720;
         constraints.video.aspectRatio = 640 / 720;
-        }catch(err){console.log("error error error")};
+        }catch(err){console.log("error error error",err)};
     }
 
     return (
