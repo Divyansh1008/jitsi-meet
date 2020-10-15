@@ -491,6 +491,8 @@ export default {
         let requestedVideo = false;
         console.log(">>>>>>>>>>11111111111111111>>>>>>>>>>>>>>");
 
+        
+
         // Always get a handle on the audio input device so that we have statistics even if the user joins the
         // conference muted. Previous implementation would only acquire the handle when the user first unmuted,
         // which would results in statistics ( such as "No audio input" or "Are you trying to speak?") being available

@@ -10,10 +10,10 @@ import { relativeTimeThreshold } from 'moment';
 
 /**
  * Represents a modified MediaStream that adds video as pip on a desktop stream.
- * <tt>JitsiStreamPresenterEffect</tt> does the processing of the original
+ * <tt>JitsiStreamPresenterEffectVS</tt> does the processing of the original
  * desktop stream.
  */
-export default class JitsiStreamPresenterEffect {
+export default class JitsiStreamPresenterEffectVS {
     _canvas: HTMLCanvasElement;
     _canvas1: HTMLCanvasElement;
     _canvas2: HTMLCanvasElement;
@@ -35,7 +35,7 @@ export default class JitsiStreamPresenterEffect {
     /**
      * Represents a modified MediaStream that adds a camera track at the
      * bottom right corner of the desktop track using a HTML canvas.
-     * <tt>JitsiStreamPresenterEffect</tt> does the processing of the original
+     * <tt>JitsiStreamPresenterEffectVS</tt> does the processing of the original
      * video stream.
      *
      * @param {MediaStream} videoStream - The video stream which is user for
