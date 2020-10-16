@@ -1,6 +1,8 @@
 // @flow
 
 import JitsiStreamPresenterEffect from './JitsiStreamPresenterEffect';
+import JitsiStreamPresenterEffectsVS from './JitsiStreamPresenterEffectsVS';
+
 
 /**
  * Creates a new instance of JitsiStreamPresenterEffect.
@@ -14,6 +16,11 @@ export function createPresenterEffect(stream: MediaStream) {
         && !MediaStreamTrack.prototype.getConstraints) {
         return Promise.reject(new Error('JitsiStreamPresenterEffect not supported!'));
     }
-
-    return Promise.resolve(new JitsiStreamPresenterEffect(stream));
+    console.log(APP.store.getState(),">>>>>>>>>>>>>>>APP_STORE");
+    const isCameraVertical = APP.store.getState()['features/base/settings'].isCameraVertical;
+    if(isCameraVertical){
+        return Promise.resolve(new JitsiStreamPresenterEffectsVS(stream));
+    } else {
+        return Promise.resolve(new JitsiStreamPresenterEffect(stream));
+    }
 }

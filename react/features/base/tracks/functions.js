@@ -4,7 +4,8 @@ import JitsiMeetJS, { JitsiTrackErrors, browser } from '../lib-jitsi-meet';
 import { MEDIA_TYPE, setAudioMuted } from '../media';
 import {
     getUserSelectedCameraDeviceId,
-    getUserSelectedMicDeviceId
+    getUserSelectedMicDeviceId,
+    updateSettings
 } from '../settings';
 
 import loadEffects from './loadEffects';
@@ -92,7 +93,7 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
         firefox_fake_device, // eslint-disable-line camelcase
         resolution
     } = state['features/base/config'];
-    
+
     //Do we need to call constraints and availableVideoInputs again??
     const constraints = options.constraints ?? state['features/base/config'].constraints;
     //FIX ME : should choose the active camera instead of zeroth indexed device and move this logic to conference.js create initial tracks
@@ -107,15 +108,18 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
             isLogitechCamera = true;
          }
     });
-    console.log(">>>>>>>>>>>>>>>>",state['features/base/settings'].displayName,window.innerHeight > window.innerWidth);
-    // Crop if username doctor is not using the Logitech C930 webcam
-    //if (state['features/base/settings'].displayName === 'Doctor' && !isLogitechCamera) {
+    console.log(">>>>>>>>>>>>>>>>state",state);
     if (window.innerHeight < window.innerWidth && !isLogitechCamera) {
-        try{console.log(">>>>>>>>>>Should be printed");
-        constraints.video.width.ideal = 640;
-        constraints.video.height.ideal = 720;
-        constraints.video.aspectRatio = 640 / 720;
-        }catch(err){console.log("error error error",err)};
+        if(constraints.video){
+            constraints.video.width.ideal = 640;
+            constraints.video.height.ideal = 720;
+            constraints.video.aspectRatio = 640 / 720;
+            APP.store.dispatch(updateSettings({
+                isCameraVertical: false
+            }));
+        } else {
+            console.log("VIDEO NOT SET", constraints);
+        }
     }
 
     return (

@@ -39,7 +39,8 @@ const DEFAULT_STATE = {
     userSelectedAudioOutputDeviceLabel: undefined,
     userSelectedCameraDeviceLabel: undefined,
     userSelectedMicDeviceLabel: undefined,
-    userSelectedSkipPrejoin: undefined
+    userSelectedSkipPrejoin: undefined,
+    isCameraVertical: true
 };
 
 const STORE_NAME = 'features/base/settings';
