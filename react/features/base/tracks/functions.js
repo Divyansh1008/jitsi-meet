@@ -95,7 +95,7 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
     } = state['features/base/config'];
 
     //Do we need to call constraints and availableVideoInputs again??
-    const constraints = options.constraints ?? state['features/base/config'].constraints;
+    const constraints = options.constraints || state['features/base/config'].constraints;
     //FIX ME : should choose the active camera instead of zeroth indexed device and move this logic to conference.js create initial tracks
     const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
     var isLogitechCamera = false;
