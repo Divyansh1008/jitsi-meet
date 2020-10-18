@@ -110,7 +110,7 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
     });
     console.log(">>>>>>>>>>>>>>>>state",state);
     if (window.innerHeight < window.innerWidth && !isLogitechCamera) {
-        if(constraints.video){
+        if(constraints && constraints.video){
             constraints.video.width.ideal = 640;
             constraints.video.height.ideal = 720;
             constraints.video.aspectRatio = 640 / 720;
