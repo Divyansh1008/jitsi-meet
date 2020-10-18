@@ -137,7 +137,12 @@ var config = {
             height: {
                 ideal: 720,
                 max: 720,
-                min: 240
+                min: 180
+            },
+            width: {
+                ideal: 1280,
+                max: 1280,
+                min: 320
             }
         }
     },
