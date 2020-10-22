@@ -15,11 +15,7 @@ import { relativeTimeThreshold } from 'moment';
  */
 export default class JitsiStreamPresenterEffectVS {
     _canvas: HTMLCanvasElement;
-    _canvas1: HTMLCanvasElement;
-    _canvas2: HTMLCanvasElement;
     _ctx: CanvasRenderingContext2D;
-    _ctx1: CanvasRenderingContext2D;
-    _ctx2: CanvasRenderingContext2D;
     _desktopElement: HTMLVideoElement;
     _desktopStream: MediaStream;
     _frameRate: number;
@@ -48,10 +44,6 @@ export default class JitsiStreamPresenterEffectVS {
 
         this._canvas = document.createElement('canvas');
         this._ctx = this._canvas.getContext('2d');
-        this._canvas1 = document.createElement('canvas');
-        this._ctx1 = this._canvas1.getContext('2d');
-        this._canvas2 = document.createElement('canvas');
-        this._ctx2 = this._canvas2.getContext('2d');
 
         this._desktopElement = document.createElement('video');
         this._videoElement = document.createElement('video');

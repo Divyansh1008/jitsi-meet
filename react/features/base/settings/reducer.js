@@ -40,7 +40,8 @@ const DEFAULT_STATE = {
     userSelectedCameraDeviceLabel: undefined,
     userSelectedMicDeviceLabel: undefined,
     userSelectedSkipPrejoin: undefined,
-    isCameraVertical: true
+    isLogitechCamera: false,
+    isHorizontalScreen: false
 };
 
 const STORE_NAME = 'features/base/settings';

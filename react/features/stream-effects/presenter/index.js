@@ -17,8 +17,10 @@ export function createPresenterEffect(stream: MediaStream) {
         return Promise.reject(new Error('JitsiStreamPresenterEffect not supported!'));
     }
     console.log(APP.store.getState(),">>>>>>>>>>>>>>>APP_STORE");
-    const isCameraVertical = APP.store.getState()['features/base/settings'].isCameraVertical;
-    if(isCameraVertical){
+    const isLogitechCamera = APP.store.getState()['features/base/settings'].isLogitechCamera;
+    const isHorizontalScreen = APP.store.getState()['features/base/settings'].isHorizontalScreen;
+    console.log(">>>>>>>>>>>>>>>>>>>>moment of truth",isLogitechCamera);
+    if(isLogitechCamera){
         return Promise.resolve(new JitsiStreamPresenterEffectsVS(stream));
     } else {
         return Promise.resolve(new JitsiStreamPresenterEffect(stream));
