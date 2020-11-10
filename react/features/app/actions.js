@@ -104,6 +104,10 @@ export function appNavigate(uri: ?string) {
         if (!room) {
             config = restoreConfig(baseURL);
         }
+        console.log(url,">>>>>>>>>>>>>>>url");
+        console.log(baseURL,">>>>>>>>>>>>>>>url");
+
+        console.log(config,">>>>>>>>>>>>>>>config1");
 
         if (!config) {
             try {
@@ -131,6 +135,8 @@ export function appNavigate(uri: ?string) {
 
             return;
         }
+
+        console.log(config,">>>>>>>>>>>>>>>config2");
 
         dispatch(setLocationURL(locationURL));
         dispatch(setConfig(config));

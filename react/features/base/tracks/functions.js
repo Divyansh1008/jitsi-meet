@@ -4,7 +4,8 @@ import JitsiMeetJS, { JitsiTrackErrors, browser } from '../lib-jitsi-meet';
 import { MEDIA_TYPE, setAudioMuted } from '../media';
 import {
     getUserSelectedCameraDeviceId,
-    getUserSelectedMicDeviceId
+    getUserSelectedMicDeviceId,
+    updateSettings
 } from '../settings';
 
 import loadEffects from './loadEffects';
@@ -31,14 +32,29 @@ export async function createLocalPresenterTrack(options, desktopHeight) {
     const proportion = 1;
     const result = cameraHeights.find(
             height => (desktopHeight / proportion) <= height);
-    const constraints = {
+    const isLogitechCamera = APP.store.getState()['features/base/settings'].isLogitechCamera;
+    var constraints;
+    if(isLogitechCamera){
+    constraints = {
         video: {
             aspectRatio: 16 / 9, // 4/3 - divyansh
             height: {
                 ideal: result
             }
         }
-    };
+    };}else{
+        constraints = {
+            video: {
+                aspectRatio: 1, // 4/3 - divyansh
+                height: {
+                    ideal: 720
+                },
+                width: {
+                    ideal: 720
+                }
+            }
+        }
+    }
     const [ videoTrack ] = await JitsiMeetJS.createLocalTracks(
         {
             cameraDeviceId,
@@ -92,30 +108,39 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
         firefox_fake_device, // eslint-disable-line camelcase
         resolution
     } = state['features/base/config'];
-    
+
     //Do we need to call constraints and availableVideoInputs again??
-    const constraints = options.constraints ?? state['features/base/config'].constraints;
+    const constraints = options.constraints || state['features/base/config'].constraints;
     //FIX ME : should choose the active camera instead of zeroth indexed device and move this logic to conference.js create initial tracks
     const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
-    var isLogitechCamera = false;
+    var logitechCamera = false;
+    console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<11111");
     availableVideoInputs.map((data) => {
         if(data.label.includes('930')){
             const firstDeviceId = data.deviceId;
-            if (state['features/base/settings'].displayName === 'Doctor'){
+            if (window.innerHeight < window.innerWidth){
                 cameraDeviceId = firstDeviceId;
             }
-            isLogitechCamera = true;
+            logitechCamera = true;
+            console.log(">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            APP.store.dispatch(updateSettings({
+                isLogitechCamera: true
+            }));
          }
     });
-    console.log(">>>>>>>>>>>>>>>>",state['features/base/settings'].displayName,window.innerHeight > window.innerWidth);
-    // Crop if username doctor is not using the Logitech C930 webcam
-    //if (state['features/base/settings'].displayName === 'Doctor' && !isLogitechCamera) {
-    if (window.innerHeight < window.innerWidth && !isLogitechCamera) {
-        try{console.log(">>>>>>>>>>Should be printed");
-        constraints.video.width.ideal = 640;
+    if(!logitechCamera){
+        APP.store.dispatch(updateSettings({
+            isLogitechCamera: false
+        }));
+    }
+    console.log(">>>>>>>>>>>>>>>>state",state);
+    if (window.innerHeight < window.innerWidth && !logitechCamera) {
+        constraints.video.width.ideal = 720;
         constraints.video.height.ideal = 720;
-        constraints.video.aspectRatio = 640 / 720;
-        }catch(err){console.log("error error error",err)};
+        constraints.video.aspectRatio = 1;
+        APP.store.dispatch(updateSettings({
+            isHorizontalScreen: true
+        }));
     }
 
     return (

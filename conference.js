@@ -1735,6 +1735,7 @@ export default {
     async _createPresenterStreamEffect(height = null, cameraDeviceId = null) {
         if (!this.localPresenterVideo) {
             try {
+                //add constraints here (JAI PAJI)
                 this.localPresenterVideo = await createLocalPresenterTrack({ cameraDeviceId }, height);
             } catch (err) {
                 logger.error('Failed to create a camera track for presenter', err);
