@@ -1,4 +1,4 @@
-/* global APP, $, config, interfaceConfig */
+/* global APP, $, config */
 
 
 const UI = {};
@@ -143,9 +143,7 @@ UI.start = function() {
     $.prompt.setDefaults({ persistent: false });
 
     VideoLayout.init(eventEmitter);
-    if (!interfaceConfig.filmStripOnly) {
-        VideoLayout.initLargeVideo();
-    }
+    VideoLayout.initLargeVideo();
 
     // Do not animate the video area on UI start (second argument passed into
     // resizeVideoArea) because the animation is not visible anyway. Plus with
@@ -351,16 +349,11 @@ UI.showLoginPopup = function(callback) {
     });
 };
 
-UI.askForNickname = function() {
-    // eslint-disable-next-line no-alert
-    return window.prompt('Your nickname (optional)');
-};
-
 /**
  * Sets muted audio state for participant
  */
-UI.setAudioMuted = function(id, muted) {
-    VideoLayout.onAudioMute(id, muted);
+UI.setAudioMuted = function(id) {
+    // FIXME: Maybe this can be removed!
     if (APP.conference.isLocalId(id)) {
         APP.conference.updateAudioIconEnabled();
     }
@@ -369,8 +362,8 @@ UI.setAudioMuted = function(id, muted) {
 /**
  * Sets muted video state for participant
  */
-UI.setVideoMuted = function(id, muted) {
-    VideoLayout.onVideoMute(id, muted);
+UI.setVideoMuted = function(id) {
+    VideoLayout.onVideoMute(id);
     if (APP.conference.isLocalId(id)) {
         APP.conference.updateVideoIconEnabled();
     }
@@ -609,6 +602,16 @@ UI.onUserFeaturesChanged = user => VideoLayout.onUserFeaturesChanged(user);
  * @returns {number} The number of remote videos.
  */
 UI.getRemoteVideosCount = () => VideoLayout.getRemoteVideosCount();
+
+/**
+ * Returns the video type of the remote participant's video.
+ * This is needed for the torture clients to determine the video type of the
+ * remote participants.
+ *
+ * @param {string} participantID - The id of the remote participant.
+ * @returns {string} The video type "camera" or "desktop".
+ */
+UI.getRemoteVideoType = participantID => VideoLayout.getRemoteVideoType(participantID);
 
 /**
  * Sets the remote control active status for a remote participant.

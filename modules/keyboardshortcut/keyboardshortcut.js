@@ -1,4 +1,4 @@
-/* global APP, $, interfaceConfig */
+/* global APP, $ */
 
 import Logger from 'jitsi-meet-logger';
 
@@ -243,6 +243,7 @@ const KeyboardShortcut = {
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
+
         /**
          * FIXME: Currently focus keys are directly implemented below in
          * onkeyup. They should be moved to the SmallVideo instead.
