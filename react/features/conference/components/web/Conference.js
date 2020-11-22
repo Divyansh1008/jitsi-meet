@@ -180,7 +180,7 @@ class Conference extends AbstractConference<Props, *> {
             _layoutClassName,
             _showPrejoin
         } = this.props;
-        const hideLabels = filmstripOnly || _iAmRecorder;
+        const hideLabels = _iAmRecorder;
         const rot = {
             transform: `rotate(90deg)`
           };

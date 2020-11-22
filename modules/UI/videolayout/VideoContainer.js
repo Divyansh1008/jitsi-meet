@@ -620,9 +620,11 @@ export class VideoContainer extends LargeContainer {
         if (interfaceConfig.DISABLE_VIDEO_BACKGROUND
                 || browser.isFirefox()
                 || browser.isSafari()) {
+                    console.log(">>>>>>>>>>>>>back",interfaceConfig.DISABLE_VIDEO_BACKGROUND,browser.isFirefox(),browser.isSafari());
             return;
         }
-
+        console.log(">>>>>>>>>>>>>back",interfaceConfig.DISABLE_VIDEO_BACKGROUND,browser.isFirefox(),browser.isSafari());
+        return;
         ReactDOM.render(
             <LargeVideoBackground
                 hidden = { this._hideBackground || this._isHidden }
