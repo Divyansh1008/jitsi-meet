@@ -121,8 +121,8 @@ class LargeVideo extends Component<Props> {
                       */}
                         <div
                             id = 'largeVideoWrapper'
-                            style={rotateStyle}>
-
+                            //style={rotateStyle}>
+                            >
                             <video
                                 
                                 autoPlay = { !this.props._noAutoPlayVideo }
