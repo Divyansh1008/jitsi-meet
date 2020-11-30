@@ -85,7 +85,7 @@ class LargeVideo extends Component<Props> {
             rotateStyle.transform = 'rotate(90deg)';
         }
     }
-            //console.log(".....................Vertical render");
+            console.log(".....................Vertical render");
             return (
                 <div
                     className = { className }
