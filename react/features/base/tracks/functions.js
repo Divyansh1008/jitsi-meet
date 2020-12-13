@@ -87,19 +87,45 @@ export async function createLocalPresenterTrack(options, desktopHeight) {
  */
 export function createLocalTracksF(options = {}, firePermissionPromptIsShownEvent, store) {
     let { cameraDeviceId, micDeviceId } = options;
+    console.log(">>>>>>>>>>>inside create LocaTrackF",options,cameraDeviceId,micDeviceId);
 
     if (typeof APP !== 'undefined') {
         // TODO The app's settings should go in the redux store and then the
         // reliance on the global variable APP will go away.
         store || (store = APP.store); // eslint-disable-line no-param-reassign
-
+        console.log(">>>>>>>>>>>inside create LocaTrackF",options,cameraDeviceId,micDeviceId);
         const state = store.getState();
+        var logitechCamera = false;
 
         if (typeof cameraDeviceId === 'undefined' || cameraDeviceId === null) {
             cameraDeviceId = getUserSelectedCameraDeviceId(state);
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<11111");
+            availableVideoInputs.map((data) => {
+                if(data.label.includes('930')){
+                    const firstDeviceId = data.deviceId;
+                    logitechCamera = true;
+                cameraDeviceId = firstDeviceId;
+                APP.store.dispatch(updateSettings({
+                    isLogitechCamera: true
+                }));
+                }
+            });
+            if(!logitechCamera){
+                APP.store.dispatch(updateSettings({
+                    isLogitechCamera: false
+                }));
+            }
         }
+        
         if (typeof micDeviceId === 'undefined' || micDeviceId === null) {
             micDeviceId = getUserSelectedMicDeviceId(state);
+            const availableAudioInputs = APP.store.getState()['features/base/devices'].availableDevices.audioInput;
+            availableAudioInputs.map((data) => {
+                if(data.label.includes('USB')){
+                    micDeviceId=data.deviceId;
+                }
+            });
         }
     }
     const state = store.getState();
@@ -113,26 +139,26 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
     const constraints = options.constraints || state['features/base/config'].constraints;
     //FIX ME : should choose the active camera instead of zeroth indexed device and move this logic to conference.js create initial tracks
     const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
-    var logitechCamera = false;
-    console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<11111");
-    availableVideoInputs.map((data) => {
-        if(data.label.includes('930')){
-            const firstDeviceId = data.deviceId;
-            if (window.innerHeight < window.innerWidth){
-                cameraDeviceId = firstDeviceId;
-            }
-            logitechCamera = true;
-            console.log(">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            APP.store.dispatch(updateSettings({
-                isLogitechCamera: true
-            }));
-         }
-    });
-    if(!logitechCamera){
-        APP.store.dispatch(updateSettings({
-            isLogitechCamera: false
-        }));
-    }
+   
+    // console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<11111");
+    // availableVideoInputs.map((data) => {
+    //     if(data.label.includes('930')){
+    //         const firstDeviceId = data.deviceId;
+    //         if (window.innerHeight < window.innerWidth){
+    //             cameraDeviceId = firstDeviceId;
+    //         }
+    //         logitechCamera = true;
+    //         console.log(">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    //         APP.store.dispatch(updateSettings({
+    //             isLogitechCamera: true
+    //         }));
+    //      }
+    // });
+    // if(!logitechCamera){
+    //     APP.store.dispatch(updateSettings({
+    //         isLogitechCamera: false
+    //     }));
+    // }
     console.log(">>>>>>>>>>>>>>>>state",state);
     if (window.innerHeight < window.innerWidth && !logitechCamera) {
         constraints.video.width.ideal = 720;

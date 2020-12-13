@@ -114,12 +114,21 @@ function computeCameraVideoSize( // eslint-disable-line max-params
             //rotated, hence interchanging maxHeight and maxWidth in the below logic
         if(videoSpaceHeight>videoSpaceWidth){
             //console.log("vertical screen detected - > VideoContainer.js 129");
-            if (width > maxHeight) {
+            if(width>height){
+            if (width > maxHeight) { //in case of horizontal camera being rotated
             width = maxHeight;
             height = width / aspectRatio;
         } else if (height > maxWidth) {
             height = maxWidth;
             width = height * aspectRatio;
+        }}else{ //in case of vertical video coming from the phone's camera
+            if (height > maxHeight) {
+                height = maxHeight;
+                width = height * aspectRatio;
+            } else if (width > maxWidth) {
+                width = maxWidth;
+                height = width / aspectRatio;
+            }
         }
 
         return [ width, height ];       
