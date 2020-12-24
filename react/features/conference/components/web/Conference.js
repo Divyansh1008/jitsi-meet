@@ -188,7 +188,7 @@ class Conference extends AbstractConference<Props, *> {
         } = this.props;
         const hideLabels = filmstripOnly || _iAmRecorder;
         const rot = {
-            transform: `rotate(90deg)`
+            transform: `rotate(0deg)`
           };
 
         return (

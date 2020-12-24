@@ -70,7 +70,7 @@ class LargeVideo extends Component<Props> {
 
         //console.log("is this where magic happens.........?",this.props._aspectRatio);
         const rot = {
-            transform: 'rotate(90deg)'
+            transform: 'rotate(0deg)'
 
             // Rotating here........
             // width: '1080px'
@@ -82,7 +82,7 @@ class LargeVideo extends Component<Props> {
         if (window.innerHeight > window.innerWidth) {
         if (this.props._aspectRatio > 1.5) {
             console.log("..................",this.props._aspectRatio);
-            rotateStyle.transform = 'rotate(90deg)';
+            rotateStyle.transform = 'rotate(0deg)';
         }
     }
             console.log(".....................Vertical render");
