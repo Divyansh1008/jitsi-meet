@@ -218,8 +218,8 @@ const KeyboardShortcut = {
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
             //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
             availableVideoInputs.map((data, i) => {
-                if(data.label.includes('930')){
-                    console.log(data.label.includes('930'), i);
+                if(data.label.includes('930')||data.label.includes('930')){
+                    //console.log(data.label.includes('930'), i);
                     const firstDeviceId = data.deviceId;
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
@@ -234,8 +234,8 @@ const KeyboardShortcut = {
             //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
             //TODO : write better cycling logic
             availableVideoInputs.map((data, i) => {
-                if(!data.label.includes('930')){
-                    console.log(data.label.includes('930'), i);
+                if(!data.label.includes('930')||!data.label.includes('FINGERS')){
+                    //console.log(data.label.includes('930'), i);
                     const firstDeviceId = data.deviceId;
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));

@@ -46,9 +46,9 @@ var interfaceConfig = {
 
     DEFAULT_BACKGROUND: '#474747',
     DEFAULT_LOCAL_DISPLAY_NAME: 'me',
-    DEFAULT_LOGO_URL: 'images/watermark.svg',   //replace this with DPT branding
+    DEFAULT_LOGO_URL: 'images/DPT_logo.svg',   //replace this with DPT branding
     DEFAULT_REMOTE_DISPLAY_NAME: 'Dr. Panday',
-    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.svg',  //replace this with DPT branding
+    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/DPT_logo.svg',  //replace this with DPT branding
 
     DISABLE_DOMINANT_SPEAKER_INDICATOR: true,
 
