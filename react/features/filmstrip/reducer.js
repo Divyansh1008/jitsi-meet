@@ -17,7 +17,7 @@ const DEFAULT_STATE = {
      * @public
      * @type {boolean}
      */
-    enabled: true,
+    enabled: false,
 
     /**
      * The horizontal view dimensions.
@@ -41,7 +41,7 @@ const DEFAULT_STATE = {
      * @public
      * @type {boolean}
      */
-    visible: true
+    visible: false
 };
 
 ReducerRegistry.register(

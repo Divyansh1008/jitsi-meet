@@ -33,7 +33,7 @@ export async function createLocalPresenterTrack(options, desktopHeight) {
             height => (desktopHeight / proportion) < height);
     const constraints = {
         video: {
-            aspectRatio: 4 / 3,
+            aspectRatio: 4 / 3, //explore maybe it needs to be changed
             height: {
                 ideal: result
             }
@@ -81,9 +81,23 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
 
         if (typeof cameraDeviceId === 'undefined' || cameraDeviceId === null) {
             cameraDeviceId = getUserSelectedCameraDeviceId(state);
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            availableVideoInputs.map((data) => {
+                if(data.label.includes('930') || data.label.includes('FINGERS')){
+                    const firstDeviceId = data.deviceId;
+                    
+                cameraDeviceId = firstDeviceId;
+                }
+            });
         }
         if (typeof micDeviceId === 'undefined' || micDeviceId === null) {
             micDeviceId = getUserSelectedMicDeviceId(state);
+            const availableAudioInputs = APP.store.getState()['features/base/devices'].availableDevices.audioInput;
+            availableAudioInputs.map((data) => {
+                if(data.label.includes('USB')){
+                    micDeviceId=data.deviceId;
+                }
+            });
         }
     }
 

@@ -12,6 +12,9 @@ import { toggleDialog } from '../../react/features/base/dialog';
 import { KeyboardShortcutsDialog }
     from '../../react/features/keyboard-shortcuts';
 import { SpeakerStats } from '../../react/features/speaker-stats';
+import {
+    setVideoInputDevice
+} from '../../react/features/base/devices';
 
 const logger = Logger.getLogger(__filename);
 
@@ -209,6 +212,36 @@ const KeyboardShortcut = {
                 conference: APP.conference
             }));
         }, 'keyboardShortcuts.showSpeakerStats');
+
+        this.registerShortcut('Z', null, () => {
+            // this shortcut changes the video input Logitech C930 webcam.
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            availableVideoInputs.map((data, i) => {
+                if(data.label.includes('930')||data.label.includes('930')){
+                    //console.log(data.label.includes('930'), i);
+                    const firstDeviceId = data.deviceId;
+                    console.log(firstDeviceId);
+                    APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                }
+            });
+        }, 'keyboardShortcuts.toggleShortcuts');
+        this.registerShortcut('X', null, () => {
+            // this shortcut changes the video input to the first device available.
+            const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
+            //const abcd = APP.store.getState();
+            //console.log(abcd);
+            //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
+            //TODO : write better cycling logic
+            availableVideoInputs.map((data, i) => {
+                if(!data.label.includes('930')||!data.label.includes('FINGERS')){
+                    //console.log(data.label.includes('930'), i);
+                    const firstDeviceId = data.deviceId;
+                    console.log(firstDeviceId);
+                    APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                }
+            });
+        }, 'keyboardShortcuts.toggleShortcuts');
 
         /**
          * FIXME: Currently focus keys are directly implemented below in

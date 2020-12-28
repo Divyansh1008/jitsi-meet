@@ -6,26 +6,26 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'jitsi-meet.example.com',
+        domain: 'aman.centralindia.cloudapp.azure.com',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
 
         // Domain for authenticated users. Defaults to <domain>.
-        // authdomain: 'jitsi-meet.example.com',
+        // authdomain: 'aman.centralindia.cloudapp.azure.com',
 
         // Focus component domain. Defaults to focus.<domain>.
         // focus: 'focus.jitsi-meet.example.com',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.jitsi-meet.example.com'
+        muc: 'conference.<!--# echo var="subdomain" default="" -->aman.centralindia.cloudapp.azure.com'
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: '//jitsi-meet.example.com/http-bind',
+    bosh: '//aman.centralindia.cloudapp.azure.com/http-bind',
 
     // Websocket URL
-    // websocket: 'wss://jitsi-meet.example.com/xmpp-websocket',
+    // websocket: 'wss://aman.centralindia.cloudapp.azure.com/xmpp-websocket',
 
     // The name of client node advertised in XEP-0115 'c' stanza
     clientNode: 'http://jitsi.org/jitsimeet',
@@ -33,7 +33,7 @@ var config = {
     // The real JID of focus participant - can be overridden here
     // Do not change username - FIXME: Make focus username configurable
     // https://github.com/jitsi/jitsi-meet/issues/7376
-    // focusUserJid: 'focus@auth.jitsi-meet.example.com',
+    // focusUserJid: 'focus@auth.aman.centralindia.cloudapp.azure.com',
 
 
     // Testing / experimental features.
@@ -83,7 +83,7 @@ var config = {
     // Audio
 
     // Disable measuring of audio levels.
-    // disableAudioLevels: false,
+    disableAudioLevels: true,
     // audioLevelsInterval: 200,
 
     // Enabling this will run the lib-jitsi-meet no audio detection module which
@@ -100,7 +100,7 @@ var config = {
     // notify the user if there is noise, other than voice, coming from the current
     // selected microphone. The purpose it to let the user know that the input could
     // be potentially unpleasant for other meeting participants.
-    enableNoisyMicDetection: true,
+    enableNoisyMicDetection: false,
 
     // Start the conference in audio only mode (no video is being received nor
     // sent).
@@ -195,9 +195,9 @@ var config = {
     //     appKey: '<APP_KEY>' // Specify your app key here.
     //     // A URL to redirect the user to, after authenticating
     //     // by default uses:
-    //     // 'https://jitsi-meet.example.com/static/oauth.html'
+    //     // 'https://aman.centralindia.cloudapp.azure.com/static/oauth.html'
     //     redirectURI:
-    //          'https://jitsi-meet.example.com/subfolder/static/oauth.html'
+    //          'https://aman.centralindia.cloudapp.azure.com/subfolder/static/oauth.html'
     // },
     // When integrations like dropbox are enabled only that will be shown,
     // by enabling fileRecordingsServiceEnabled, we show both the integrations
@@ -283,7 +283,7 @@ var config = {
     //
     //    // Provides a way to resize the desktop track to 720p (if it is greater than 720p) before creating a canvas
     //    // for the presenter mode (camera picture-in-picture mode with screenshare).
-    //    resizeDesktopForPresenter: false
+    //    resizeDesktopForPresenter: false //explore this
     // },
 
     // // Options for the recording limit notification.
@@ -321,7 +321,8 @@ var config = {
     // Use TURN/UDP servers for the jitsi-videobridge connection (by default
     // we filter out TURN/UDP because it is usually not needed since the
     // bridge itself is reachable via UDP)
-    // useTurnUdp: false
+    // useTurnUdp: false //explore this
+    // Jai - useStunTurn ye gayab hai...kya kare?
 
     // UI
     //
@@ -334,7 +335,7 @@ var config = {
 
     // Whether to use a welcome page or not. In case it's false a random room
     // will be joined when no room is specified.
-    enableWelcomePage: true,
+    enableWelcomePage: true,    //explore this
 
     // Enabling the close page will ignore the welcome page redirection when
     // a call is hangup.
@@ -365,7 +366,7 @@ var config = {
     // enableCalendarIntegration: false,
 
     // When 'true', it shows an intermediate page before joining, where the user can configure their devices.
-    // prejoinPageEnabled: false,
+    // prejoinPageEnabled: false,   //explore this to show the doctors their preview
 
     // If etherpad integration is enabled, setting this to true will
     // automatically open the etherpad when a participant joins.  This
@@ -393,7 +394,7 @@ var config = {
     // This can be useful for debugging purposes (post-processing/analysis of
     // the webrtc stats) as it is done in the jitsi-meet-torture bandwidth
     // estimation tests.
-    // gatherStats: false,
+    // gatherStats: false,  //explore this to sort our p2p debugging
 
     // The interval at which PeerConnection.getStats() is called. Defaults to 10000
     // pcStatsInterval: 10000,
@@ -433,8 +434,8 @@ var config = {
         // The STUN servers that will be used in the peer to peer connections
         stunServers: [
 
-            // { urls: 'stun:jitsi-meet.example.com:3478' },
-            { urls: 'stun:meet-jit-si-turnrelay.jitsi.net:443' }
+            // { urls: 'stun:aman.centralindia.cloudapp.azure.com:3478' },
+            { urls: 'stun:jitsi-turn-dpt.centralindia.cloudapp.azure.com:443' }
         ]
 
         // Sets the ICE transport policy for the p2p connection. At the time
@@ -565,7 +566,7 @@ var config = {
 
     // If true, any checks to handoff to another application will be prevented
     // and instead the app will continue to display in the current browser.
-    // disableDeepLinking: false,
+    disableDeepLinking: true,
 
     // A property to disable the right click context menu for localVideo
     // the menu has option to flip the locally seen video for local presentations

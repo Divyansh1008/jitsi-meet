@@ -46,18 +46,18 @@ var interfaceConfig = {
 
     DEFAULT_BACKGROUND: '#474747',
     DEFAULT_LOCAL_DISPLAY_NAME: 'me',
-    DEFAULT_LOGO_URL: 'images/watermark.svg',
-    DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
-    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.svg',
+    DEFAULT_LOGO_URL: 'images/DPT_logo.svg',   //replace this with DPT branding
+    DEFAULT_REMOTE_DISPLAY_NAME: 'Dr. Panday',
+    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/DPT_logo.svg',  //replace this with DPT branding
 
-    DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
+    DISABLE_DOMINANT_SPEAKER_INDICATOR: true,
 
-    DISABLE_FOCUS_INDICATOR: false,
+    DISABLE_FOCUS_INDICATOR: true,
 
     /**
      * If true, notifications regarding joining/leaving are no longer displayed.
      */
-    DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
 
     /**
      * If true, presence status: busy, calling, connected etc. is not displayed.
@@ -70,7 +70,7 @@ var interfaceConfig = {
      *
      * @type {boolean}
      */
-    DISABLE_RINGING: false,
+    DISABLE_RINGING: false, //explore new feature
 
     /**
      * Whether the speech to text transcription subtitles panel is disabled.
@@ -84,7 +84,7 @@ var interfaceConfig = {
      * Whether or not the blurred video background for large video should be
      * displayed on browsers that can support it.
      */
-    DISABLE_VIDEO_BACKGROUND: false,
+    DISABLE_VIDEO_BACKGROUND: true,
 
     DISPLAY_WELCOME_FOOTER: true,
     DISPLAY_WELCOME_PAGE_ADDITIONAL_CARD: false,
@@ -122,7 +122,7 @@ var interfaceConfig = {
      *
      * @type {number}
      */
-    MAXIMUM_ZOOMING_COEFFICIENT: 1.3,
+    MAXIMUM_ZOOMING_COEFFICIENT: 2,
 
     /**
      * Whether the mobile app Jitsi Meet is to be promoted to participants
@@ -131,7 +131,7 @@ var interfaceConfig = {
      *
      * @type {boolean}
      */
-    MOBILE_APP_PROMO: true,
+    MOBILE_APP_PROMO: false,
 
     /**
      * Specify custom URL for downloading android mobile app.
@@ -202,11 +202,10 @@ var interfaceConfig = {
      * - 'desktop' controls the "Share your screen" button
      */
     TOOLBAR_BUTTONS: [
-        'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
-        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
-        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
+        'microphone', 'camera',  'desktop', 'embedmeeting', 'fullscreen',
+        'fodeviceselection', 'hangup', 'profile',
+        'videoquality', 'feedback', 'stats', 'shortcuts',
+        'tileview', 'videobackgroundblur', 'mute-everyone', 'security'
     ],
 
     TOOLBAR_TIMEOUT: 4000,
@@ -224,7 +223,7 @@ var interfaceConfig = {
     // screen, 'height' would fit the original video height to the height of the
     // screen, 'width' would fit the original video width to the width of the
     // screen respecting ratio.
-    VIDEO_LAYOUT_FIT: 'both',
+    VIDEO_LAYOUT_FIT: 'both',   //explore
 
     /**
      * If true, hides the video quality label indicating the resolution status
