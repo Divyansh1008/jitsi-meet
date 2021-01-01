@@ -6,26 +6,26 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'aman.centralindia.cloudapp.azure.com',
+        domain: 'dpt.centralindia.cloudapp.azure.com',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
 
         // Domain for authenticated users. Defaults to <domain>.
-        // authdomain: 'aman.centralindia.cloudapp.azure.com',
+        // authdomain: 'dpt.centralindia.cloudapp.azure.com',
 
         // Focus component domain. Defaults to focus.<domain>.
         // focus: 'focus.jitsi-meet.example.com',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.<!--# echo var="subdomain" default="" -->aman.centralindia.cloudapp.azure.com'
+        muc: 'conference.<!--# echo var="subdomain" default="" -->dpt.centralindia.cloudapp.azure.com'
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: '//aman.centralindia.cloudapp.azure.com/http-bind',
+    bosh: '//dpt.centralindia.cloudapp.azure.com/http-bind',
 
     // Websocket URL
-    // websocket: 'wss://aman.centralindia.cloudapp.azure.com/xmpp-websocket',
+    // websocket: 'wss://dpt.centralindia.cloudapp.azure.com/xmpp-websocket',
 
     // The name of client node advertised in XEP-0115 'c' stanza
     clientNode: 'http://jitsi.org/jitsimeet',
@@ -33,7 +33,7 @@ var config = {
     // The real JID of focus participant - can be overridden here
     // Do not change username - FIXME: Make focus username configurable
     // https://github.com/jitsi/jitsi-meet/issues/7376
-    // focusUserJid: 'focus@auth.aman.centralindia.cloudapp.azure.com',
+    // focusUserJid: 'focus@auth.dpt.centralindia.cloudapp.azure.com',
 
 
     // Testing / experimental features.
@@ -195,9 +195,9 @@ var config = {
     //     appKey: '<APP_KEY>' // Specify your app key here.
     //     // A URL to redirect the user to, after authenticating
     //     // by default uses:
-    //     // 'https://aman.centralindia.cloudapp.azure.com/static/oauth.html'
+    //     // 'https://dpt.centralindia.cloudapp.azure.com/static/oauth.html'
     //     redirectURI:
-    //          'https://aman.centralindia.cloudapp.azure.com/subfolder/static/oauth.html'
+    //          'https://dpt.centralindia.cloudapp.azure.com/subfolder/static/oauth.html'
     // },
     // When integrations like dropbox are enabled only that will be shown,
     // by enabling fileRecordingsServiceEnabled, we show both the integrations
@@ -434,7 +434,7 @@ var config = {
         // The STUN servers that will be used in the peer to peer connections
         stunServers: [
 
-            // { urls: 'stun:aman.centralindia.cloudapp.azure.com:3478' },
+            // { urls: 'stun:dpt.centralindia.cloudapp.azure.com:3478' },
             { urls: 'stun:jitsi-turn-dpt.centralindia.cloudapp.azure.com:443' }
         ]
 
