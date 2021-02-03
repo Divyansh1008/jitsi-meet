@@ -223,7 +223,6 @@ const KeyboardShortcut = {
                     const firstDeviceId = data.deviceId;
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
-                    break;
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
@@ -232,11 +231,9 @@ const KeyboardShortcut = {
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
             availableVideoInputs.map((data, i) => {
                 if(!(data.label.includes('930')||data.label.includes('FINGERS'))){
-                    //console.log(data.label.includes('930'), i);
                     const firstDeviceId = data.deviceId;
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
-                    break;
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
