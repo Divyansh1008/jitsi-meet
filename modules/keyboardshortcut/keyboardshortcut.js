@@ -232,6 +232,7 @@ const KeyboardShortcut = {
             availableVideoInputs.map((data, i) => {
                 if(!(data.label.includes('930')||data.label.includes('FINGERS'))){
                     const firstDeviceId = data.deviceId;
+                    console.log("debug line detctected <<<<<<<<<<<")
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
                 }
