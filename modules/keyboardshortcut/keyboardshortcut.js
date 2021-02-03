@@ -223,22 +223,20 @@ const KeyboardShortcut = {
                     const firstDeviceId = data.deviceId;
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                    break;
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
         this.registerShortcut('X', null, () => {
             // this shortcut changes the video input to the first device available.
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
-            //const abcd = APP.store.getState();
-            //console.log(abcd);
-            //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
-            //TODO : write better cycling logic
             availableVideoInputs.map((data, i) => {
-                if(!data.label.includes('930')||!data.label.includes('FINGERS')){
+                if(!(data.label.includes('930')||data.label.includes('FINGERS'))){
                     //console.log(data.label.includes('930'), i);
                     const firstDeviceId = data.deviceId;
                     console.log(firstDeviceId);
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                    break;
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
