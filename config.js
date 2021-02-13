@@ -436,7 +436,10 @@ var config = {
         stunServers: [
 
             // { urls: 'stun:jitsi-dpt.centralindia.cloudapp.azure.com:3478' },
-            { urls: 'turn:jitsi-dpt-turn.centralindia.cloudapp.azure.com', credential: 'ubuntu', password: '123456' }
+            { urls: 'stun:jitsi-dpt-turn.centralindia.cloudapp.azure.com:3478' },
+            { urls: "stun:stun.l.google.com:19302" },
+            { urls: "stun:stun1.l.google.com:19302" },
+            { urls: "stun:stun2.l.google.com:19302" }
         ]
 
         // Sets the ICE transport policy for the p2p connection. At the time
