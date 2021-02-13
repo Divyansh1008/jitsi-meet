@@ -223,7 +223,7 @@ var interfaceConfig = {
     // screen, 'height' would fit the original video height to the height of the
     // screen, 'width' would fit the original video width to the width of the
     // screen respecting ratio.
-    VIDEO_LAYOUT_FIT: 'width',   //explore
+    VIDEO_LAYOUT_FIT: 'both',   //explore
 
     /**
      * If true, hides the video quality label indicating the resolution status

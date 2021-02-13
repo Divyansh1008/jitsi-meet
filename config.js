@@ -430,12 +430,13 @@ var config = {
         // 3rd participant joins the conference will be moved back to the JVB
         // connection.
         enabled: true,
-
+        preferH264: true,
+        useStunTurn: true,
         // The STUN servers that will be used in the peer to peer connections
         stunServers: [
 
             // { urls: 'stun:jitsi-dpt.centralindia.cloudapp.azure.com:3478' },
-            { urls: 'stun:jitsi-turn-dpt.centralindia.cloudapp.azure.com:443' }
+            { urls: 'stun:jitsi-dpt-turn.centralindia.cloudapp.azure.com:443' }
         ]
 
         // Sets the ICE transport policy for the p2p connection. At the time
