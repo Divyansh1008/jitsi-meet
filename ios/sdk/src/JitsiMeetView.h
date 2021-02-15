@@ -37,4 +37,14 @@
  */
 - (void)leave;
 
+- (void)hangUp;
+
+- (void)setAudioMuted:(BOOL)muted;
+
+- (void)sendEndpointTextMessage:(NSString*)to :(NSString*)message;
+
+- (void)toggleScreenShare;
+
+- (void)retrieveParticipantsInfo:(void (^)(NSArray*))completionHandler;
+
 @end
