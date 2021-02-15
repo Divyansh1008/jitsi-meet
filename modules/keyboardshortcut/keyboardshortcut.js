@@ -214,27 +214,24 @@ const KeyboardShortcut = {
         }, 'keyboardShortcuts.showSpeakerStats');
 
         this.registerShortcut('Z', null, () => {
-            // this shortcut changes the video input Logitech C930 webcam.
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
-            //console.log("ALL VIDEO INPUTS DATA", availableVideoInputs);
             availableVideoInputs.map((data, i) => {
                 if(data.label.includes('930')||data.label.includes('FINGERS')){
-                    //console.log(data.label.includes('930'), i);
                     const firstDeviceId = data.deviceId;
-                    console.log(firstDeviceId);
+                    console.log("switching to main camera");
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                    console.log("Successfully switched to phone camera");
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
         this.registerShortcut('X', null, () => {
-            // this shortcut changes the video input to the first device available.
             const availableVideoInputs = APP.store.getState()['features/base/devices'].availableDevices.videoInput;
             availableVideoInputs.map((data, i) => {
                 if(!(data.label.includes('930')||data.label.includes('FINGERS'))){
                     const firstDeviceId = data.deviceId;
-                    console.log("debug line detctected <<<<<<<<<<<")
-                    console.log(firstDeviceId);
+                    console.log("switching to phone camera");
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
+                    console.log("Successfully switched to phone camera");
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
