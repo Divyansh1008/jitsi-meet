@@ -18,7 +18,7 @@ var config = {
         // focus: 'focus.jitsi-meet.example.com',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.<!--# echo var="subdomain" default="" -->jitsi-dpt.centralindia.cloudapp.azure.com'
+        muc: 'conference.jitsi-dpt.centralindia.cloudapp.azure.com'
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.

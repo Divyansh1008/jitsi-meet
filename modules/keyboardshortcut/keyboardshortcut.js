@@ -220,7 +220,7 @@ const KeyboardShortcut = {
                     const firstDeviceId = data.deviceId;
                     console.log("switching to main camera");
                     APP.store.dispatch(setVideoInputDevice(firstDeviceId));
-                    console.log("Successfully switched to phone camera");
+                    console.log("Successfully switched to main camera");
                 }
             });
         }, 'keyboardShortcuts.toggleShortcuts');
