@@ -3,14 +3,15 @@
 import React from 'react';
 
 import { translate } from '../../../base/i18n';
-import { Icon, IconClose } from '../../../base/icons';
 import { connect } from '../../../base/redux';
+import { toggleChat } from '../../actions.web';
 import AbstractChat, {
-    _mapDispatchToProps,
     _mapStateToProps,
     type Props
 } from '../AbstractChat';
 
+import ChatDialog from './ChatDialog';
+import Header from './ChatDialogHeader';
 import ChatInput from './ChatInput';
 import DisplayNameForm from './DisplayNameForm';
 import MessageContainer from './MessageContainer';
@@ -48,9 +49,8 @@ class Chat extends AbstractChat<Props> {
 
         // Bind event handlers so they are only bound once for every instance.
         this._renderPanelContent = this._renderPanelContent.bind(this);
-
-        // Bind event handlers so they are only bound once for every instance.
         this._onChatInputResize = this._onChatInputResize.bind(this);
+        this._onToggleChat = this._onToggleChat.bind(this);
     }
 
     /**
@@ -118,7 +118,7 @@ class Chat extends AbstractChat<Props> {
                 <MessageRecipient />
                 <ChatInput
                     onResize = { this._onChatInputResize }
-                    onSend = { this.props._onSendMessage } />
+                    onSend = { this._onSendMessage } />
             </>
         );
     }
@@ -132,13 +132,9 @@ class Chat extends AbstractChat<Props> {
      */
     _renderChatHeader() {
         return (
-            <div className = 'chat-header'>
-                <div
-                    className = 'chat-close'
-                    onClick = { this.props._onToggleChat }>
-                    <Icon src = { IconClose } />
-                </div>
-            </div>
+            <Header
+                className = 'chat-header'
+                onCancel = { this._onToggleChat } />
         );
     }
 
@@ -151,16 +147,25 @@ class Chat extends AbstractChat<Props> {
      * @returns {ReactElement | null}
      */
     _renderPanelContent() {
-        const { _isOpen, _showNamePrompt } = this.props;
-        const ComponentToRender = _isOpen
-            ? (
-                <>
-                    { this._renderChatHeader() }
-                    { _showNamePrompt
-                        ? <DisplayNameForm /> : this._renderChat() }
-                </>
-            )
-            : null;
+        const { _isModal, _isOpen, _showNamePrompt } = this.props;
+        let ComponentToRender = null;
+
+        if (_isOpen) {
+            if (_isModal) {
+                ComponentToRender = (
+                    <ChatDialog>
+                        { _showNamePrompt ? <DisplayNameForm /> : this._renderChat() }
+                    </ChatDialog>
+                );
+            } else {
+                ComponentToRender = (
+                    <>
+                        { this._renderChatHeader() }
+                        { _showNamePrompt ? <DisplayNameForm /> : this._renderChat() }
+                    </>
+                );
+            }
+        }
         let className = '';
 
         if (_isOpen) {
@@ -191,6 +196,20 @@ class Chat extends AbstractChat<Props> {
             this._messageContainerRef.current.scrollToBottom(withAnimation);
         }
     }
+
+    _onSendMessage: (string) => void;
+
+    _onToggleChat: () => void;
+
+    /**
+    * Toggles the chat window.
+    *
+    * @returns {Function}
+    */
+    _onToggleChat() {
+        this.props.dispatch(toggleChat());
+    }
+
 }
 
-export default translate(connect(_mapStateToProps, _mapDispatchToProps)(Chat));
+export default translate(connect(_mapStateToProps)(Chat));

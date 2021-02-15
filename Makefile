@@ -16,8 +16,11 @@ WEBPACK_DEV_SERVER = ./node_modules/.bin/webpack-dev-server
 
 all: compile deploy clean
 
-compile:
+compile: compile-load-test
 	$(WEBPACK) -p
+
+compile-load-test:
+	${NPM} install --prefix resources/load-test && ${NPM} run build --prefix resources/load-test
 
 clean:
 	rm -fr $(BUILD_DIR)
@@ -39,8 +42,6 @@ deploy-appbundle:
 		$(BUILD_DIR)/external_api.min.map \
 		$(BUILD_DIR)/flacEncodeWorker.min.js \
 		$(BUILD_DIR)/flacEncodeWorker.min.map \
-		$(BUILD_DIR)/device_selection_popup_bundle.min.js \
-		$(BUILD_DIR)/device_selection_popup_bundle.min.map \
 		$(BUILD_DIR)/dial_in_info_bundle.min.js \
 		$(BUILD_DIR)/dial_in_info_bundle.min.map \
 		$(BUILD_DIR)/alwaysontop.min.js \

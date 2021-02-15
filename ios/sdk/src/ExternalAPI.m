@@ -1,5 +1,5 @@
 /*
- * Copyright @ 2017-present Atlassian Pty Ltd
+ * Copyright @ 2017-present 8x8, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,54 @@
  * limitations under the License.
  */
 
-#import <React/RCTBridgeModule.h>
-
+#import "ExternalAPI.h"
 #import "JitsiMeetView+Private.h"
 
-@interface ExternalAPI : NSObject<RCTBridgeModule>
-@end
+// Events
+static NSString * const hangUpAction = @"org.jitsi.meet.HANG_UP";
+static NSString * const setAudioMutedAction = @"org.jitsi.meet.SET_AUDIO_MUTED";
+static NSString * const sendEndpointTextMessageAction = @"org.jitsi.meet.SEND_ENDPOINT_TEXT_MESSAGE";
+static NSString * const toggleScreenShareAction = @"org.jitsi.meet.TOGGLE_SCREEN_SHARE";
+static NSString * const retrieveParticipantsInfoAction = @"org.jitsi.meet.RETRIEVE_PARTICIPANTS_INFO";
 
 @implementation ExternalAPI
 
+static NSMapTable<NSString*, void (^)(NSArray* participantsInfo)> *participantInfoCompletionHandlers;
+
+__attribute__((constructor))
+static void initializeViewsMap() {
+    participantInfoCompletionHandlers = [NSMapTable strongToStrongObjectsMapTable];
+}
+
 RCT_EXPORT_MODULE();
+
+- (NSDictionary *)constantsToExport {
+    return @{
+        @"HANG_UP": hangUpAction,
+        @"SET_AUDIO_MUTED" : setAudioMutedAction,
+        @"SEND_ENDPOINT_TEXT_MESSAGE": sendEndpointTextMessageAction,
+        @"TOGGLE_SCREEN_SHARE": toggleScreenShareAction,
+        @"RETRIEVE_PARTICIPANTS_INFO": retrieveParticipantsInfoAction
+    };
+};
 
 /**
  * Make sure all methods in this module are invoked on the main/UI thread.
  */
 - (dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
+}
+
++ (BOOL)requiresMainQueueSetup {
+    return NO;
+}
+
+- (NSArray<NSString *> *)supportedEvents {
+    return @[ hangUpAction,
+              setAudioMutedAction,
+              sendEndpointTextMessageAction,
+              toggleScreenShareAction,
+              retrieveParticipantsInfoAction];
 }
 
 /**
@@ -57,12 +89,26 @@ RCT_EXPORT_METHOD(sendEvent:(NSString *)name
     if (!delegate) {
         return;
     }
+    
+    if ([name isEqual: @"PARTICIPANTS_INFO_RETRIEVED"]) {
+        [self onParticipantsInfoRetrieved: data];
+        return;
+    }
 
     SEL sel = NSSelectorFromString([self methodNameFromEventName:name]);
 
     if (sel && [delegate respondsToSelector:sel]) {
         [delegate performSelector:sel withObject:data];
     }
+}
+
+- (void) onParticipantsInfoRetrieved:(NSDictionary *)data {
+    NSArray *participantsInfoArray = [data objectForKey:@"participantsInfo"];
+    NSString *completionHandlerId = [data objectForKey:@"requestId"];
+    
+    void (^completionHandler)(NSArray*) = [participantInfoCompletionHandlers objectForKey:completionHandlerId];
+    completionHandler(participantsInfoArray);
+    [participantInfoCompletionHandlers removeObjectForKey:completionHandlerId];
 }
 
 /**
@@ -87,4 +133,35 @@ RCT_EXPORT_METHOD(sendEvent:(NSString *)name
    return methodName;
 }
 
+- (void)sendHangUp {
+    [self sendEventWithName:hangUpAction body:nil];
+}
+
+- (void)sendSetAudioMuted:(BOOL)muted {
+    NSDictionary *data = @{ @"muted": [NSNumber numberWithBool:muted]};
+
+    [self sendEventWithName:setAudioMutedAction body:data];
+}
+
+- (void)sendEndpointTextMessage:(NSString*)to :(NSString*)message {
+    NSDictionary *data = @{
+        @"to": to,
+        @"message": message
+    };
+    
+    [self sendEventWithName:sendEndpointTextMessageAction body:data];
+}
+
+- (void)toggleScreenShare {
+    [self sendEventWithName:toggleScreenShareAction body:nil];
+}
+
+- (void)retrieveParticipantsInfo:(void (^)(NSArray*))completionHandler {
+    NSString *completionHandlerId = [[NSUUID UUID] UUIDString];
+    NSDictionary *data = @{ @"requestId": completionHandlerId};
+    
+    [participantInfoCompletionHandlers setObject:[completionHandler copy] forKey:completionHandlerId];
+    
+    [self sendEventWithName:retrieveParticipantsInfoAction body:data];
+}
 @end
