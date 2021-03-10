@@ -96,7 +96,7 @@ export function createLocalTracksF(options = {}, firePermissionPromptIsShownEven
             micDeviceId = getUserSelectedMicDeviceId(state);
             const availableAudioInputs = APP.store.getState()['features/base/devices'].availableDevices.audioInput;
             availableAudioInputs.map((data) => {
-                if(data.label.includes('USB')){
+                if(data.label.includes('Realtek Audio USB')){
                     micDeviceId=data.deviceId;
                 }
             });
