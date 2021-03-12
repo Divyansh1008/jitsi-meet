@@ -240,6 +240,12 @@ var config = {
     //     90: 2
     // },
 
+    // Provides a way to translate the legacy bridge signaling messages, 'LastNChangedEvent',
+    // 'SelectedEndpointsChangedEvent' and 'ReceiverVideoConstraint' into the new 'ReceiverVideoConstraints' message
+    // that invokes the new bandwidth allocation algorithm in the bridge which is described here
+    // - https://github.com/jitsi/jitsi-videobridge/blob/master/doc/allocation.md.
+    // useNewBandwidthAllocationStrategy: false,
+
     // Specify the settings for video quality optimizations on the client.
     // videoQuality: {
     //    // Provides a way to prevent a video codec from being negotiated on the JVB connection. The codec specified
@@ -407,7 +413,26 @@ var config = {
     // enableAutomaticUrlCopy: false,
 
     // Base URL for a Gravatar-compatible service. Defaults to libravatar.
-    // gravatarBaseURL: 'https://seccdn.libravatar.org/avatar/';
+    // gravatarBaseURL: 'https://seccdn.libravatar.org/avatar/',
+
+    // Moved from interfaceConfig(TOOLBAR_BUTTONS).
+    // The name of the toolbar buttons to display in the toolbar, including the
+    // "More actions" menu. If present, the button will display. Exceptions are
+    // "livestreaming" and "recording" which also require being a moderator and
+    // some other values in config.js to be enabled. Also, the "profile" button will
+    // not display for users with a JWT.
+    // Notes:
+    // - it's impossible to choose which buttons go in the "More actions" menu
+    // - it's impossible to control the placement of buttons
+    // - 'desktop' controls the "Share your screen" button
+    // - if `toolbarButtons` is undefined, we fallback to enabling all buttons on the UI
+    // toolbarButtons: [
+    //    'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+    //    'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+    //    'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+    //    'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+    //    'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'mute-video-everyone', 'security'
+    // ],
 
     // Stats
     //
@@ -660,6 +685,11 @@ var config = {
 
     // Sets the conference subject
     // subject: 'Conference Subject',
+
+    // This property is related to the use case when jitsi-meet is used via the IFrame API. When the property is true
+    // jitsi-meet will use the local storage of the host page instead of its own. This option is useful if the browser
+    // is not persisting the local storage inside the iframe.
+    // useHostPageLocalStorage: true,
 
     // List of undocumented settings used in jitsi-meet
     /**

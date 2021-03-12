@@ -37,6 +37,7 @@ const commands = {
     intiatePrivateChat: 'initiate-private-chat',
     kickParticipant: 'kick-participant',
     muteEveryone: 'mute-everyone',
+    overwriteConfig: 'overwrite-config',
     password: 'password',
     pinParticipant: 'pin-participant',
     resizeLargeVideo: 'resize-large-video',
@@ -320,7 +321,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
         const frameName = `jitsiConferenceFrame${id}`;
 
         this._frame = document.createElement('iframe');
-        this._frame.allow = 'camera; microphone; display-capture; autoplay;';
+        this._frame.allow = 'camera; microphone; display-capture; autoplay; clipboard-write';
         this._frame.src = this._url;
         this._frame.name = frameName;
         this._frame.id = frameName;
