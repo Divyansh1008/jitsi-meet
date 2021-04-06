@@ -919,7 +919,7 @@
     },
     "lonelyMeetingExperience": {
         "button": "Invite others",
-        "youAreAlone": "You are the only one in the meeting"
+        "youAreAlone": "Please wait for the doctor to connect, Do not close this"
     },
     "helpView": {
         "header": "Help center"
