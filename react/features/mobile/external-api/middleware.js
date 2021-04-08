@@ -27,14 +27,14 @@ import {
 } from '../../base/connection';
 import { JitsiConferenceEvents } from '../../base/lib-jitsi-meet';
 import { MEDIA_TYPE } from '../../base/media';
-import { SET_AUDIO_MUTED } from '../../base/media/actionTypes';
+import { SET_AUDIO_MUTED, SET_VIDEO_MUTED } from '../../base/media/actionTypes';
 import { PARTICIPANT_JOINED, PARTICIPANT_LEFT, getParticipants, getParticipantById } from '../../base/participants';
 import { MiddlewareRegistry, StateListenerRegistry } from '../../base/redux';
 import { toggleScreensharing } from '../../base/tracks';
 import { OPEN_CHAT, CLOSE_CHAT } from '../../chat';
 import { openChat } from '../../chat/actions';
 import { sendMessage, setPrivateMessageRecipient, closeChat } from '../../chat/actions.any';
-import { muteLocal } from '../../remote-video-menu/actions';
+import { muteLocal } from '../../video-menu/actions';
 import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture';
 
 import { setParticipantsWithScreenShare } from './actions';
@@ -209,6 +209,15 @@ MiddlewareRegistry.register(store => next => action => {
                 muted: action.muted
             });
         break;
+
+    case SET_VIDEO_MUTED:
+        sendEvent(
+            store,
+            'VIDEO_MUTED_CHANGED',
+            /* data */ {
+                muted: action.muted
+            });
+        break;
     }
 
     return result;
@@ -271,7 +280,11 @@ function _registerForNativeEvents(store) {
     });
 
     eventEmitter.addListener(ExternalAPI.SET_AUDIO_MUTED, ({ muted }) => {
-        dispatch(muteLocal(muted === 'true', MEDIA_TYPE.AUDIO));
+        dispatch(muteLocal(muted, MEDIA_TYPE.AUDIO));
+    });
+
+    eventEmitter.addListener(ExternalAPI.SET_VIDEO_MUTED, ({ muted }) => {
+        dispatch(muteLocal(muted, MEDIA_TYPE.VIDEO));
     });
 
     eventEmitter.addListener(ExternalAPI.SEND_ENDPOINT_TEXT_MESSAGE, ({ to, message }) => {

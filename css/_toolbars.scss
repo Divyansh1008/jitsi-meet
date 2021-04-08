@@ -72,10 +72,6 @@
 
     .toolbox-button-wth-dialog {
         display: inline-block;
-
-        &> div {
-            padding: 0;
-        }
     }
 }
 
@@ -102,9 +98,15 @@
     }
 }
 
+.toolbox-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 100%;
+}
 
 .toolbox-content-items {
-    background: #131519;
+    background: $newToolbarBackgroundColor;
     box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.25), 0px 0px 0px 1px rgba(0, 0, 0, 0.15);
     border-radius: 6px;
     margin: 0 auto;
@@ -165,9 +167,14 @@
         cursor: initial;
         color: #929292;
 
+        &:hover {
+            background: none;
+        }
+
         svg {
             fill: #929292;
         }
+
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -235,6 +242,11 @@
         }
     }
 
+    @media (max-width: 320px) {
+        height: 36px;
+        width: 36px;
+    }
+
     &.toggled {
         background: $newToolbarButtonToggleColor;
     }
@@ -291,4 +303,33 @@
         }
     }
 
+}
+
+/**
+ * On small mobile devices make the toolbar full width and pad the invite prompt.
+ */
+.toolbox-content-mobile {
+    @media (max-width: 500px) {
+        margin-bottom: 0;
+
+        .toolbox-content-wrapper {
+            width: 100%;
+        }
+
+        .toolbox-content-items {
+            border-radius: 0;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 6px 0;
+            width: 100%;
+        }
+
+        .invite-more-container {
+            margin: 0 16px 8px;
+        }
+
+        .invite-more-container.elevated {
+            margin-bottom: 52px;
+        }
+    }
 }

@@ -7,7 +7,7 @@ import { IconMuteVideoEveryone } from '../../base/icons';
 import { getLocalParticipant, PARTICIPANT_ROLE } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { AbstractButton, type AbstractButtonProps } from '../../base/toolbox/components';
-import { MuteEveryonesVideoDialog } from '../../remote-video-menu/components';
+import { MuteEveryonesVideoDialog } from '../../video-menu/components';
 
 type Props = AbstractButtonProps & {
 
@@ -35,7 +35,6 @@ class MuteEveryonesVideoButton extends AbstractButton<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.muteEveryonesVideo';
     icon = IconMuteVideoEveryone;
     label = 'toolbar.muteEveryonesVideo';
-    tooltip = 'toolbar.muteVideoEveryone';
 
     /**
      * Handles clicking / pressing the button, and opens a confirmation dialog.
