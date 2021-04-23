@@ -226,7 +226,7 @@
         "liveStreamingDisabledBecauseOfActiveRecordingTooltip": "Not possible while recording is active",
         "liveStreamingDisabledTooltip": "Start live stream disabled.",
         "lockMessage": "Failed to lock the conference.",
-        "lockRoom": "Add meeting $t(lockRoomPasswordUppercase)",
+        "lockRoom": "Add meeting $t(lockRoomPassword)",
         "lockTitle": "Lock failed",
         "logoutQuestion": "Are you sure you want to logout and stop the conference?",
         "login": "Login",
@@ -259,6 +259,7 @@
         "muteParticipantsVideoTitle": "Disable camera of this participant?",
         "muteParticipantsVideoBody": "You won't be able to turn the camera back on, but they can turn it back on at any time.",
         "Ok": "OK",
+        "password": "Password",
         "passwordLabel": "The meeting has been locked by a participant. Please enter the $t(lockRoomPassword) to join.",
         "passwordNotSupported": "Setting a meeting $t(lockRoomPassword) is not supported.",
         "passwordNotSupportedTitle": "$t(lockRoomPasswordUppercase) not supported",
@@ -338,10 +339,11 @@
         "title": "Embed this meeting"
     },
     "virtualBackground": {
-        "title": "Backgrounds",
-        "enableBlur": "Enable blur",
+        "title": "Virtual backgrounds",
+        "blur": "Blur",
+        "slightBlur": "Slight Blur",
         "removeBackground": "Remove background",
-        "uploadImage": "Upload image",
+        "addBackground": "Add background",
         "pleaseWait": "Please wait...",
         "none": "None"
     },
@@ -417,6 +419,7 @@
         "showSpeakerStats": "Show speaker stats",
         "toggleChat": "Open or close the chat",
         "toggleFilmstrip": "Show or hide video thumbnails",
+        "toggleParticipantsPane": "Show or hide the participants pane",
         "toggleScreensharing": "Switch between camera and screen sharing",
         "toggleShortcuts": "Show or hide keyboard shortcuts",
         "videoMute": "Start or stop your camera"
@@ -510,6 +513,8 @@
         "passwordRemovedRemotely": "$t(lockRoomPasswordUppercase) removed by another participant",
         "passwordSetRemotely": "$t(lockRoomPasswordUppercase) set by another participant",
         "raisedHand": "{{name}} would like to speak.",
+        "screenShareNoAudio": " Share audio box was not checked in the window selection screen.",
+        "screenShareNoAudioTitle": "Share audio was not checked",
         "somebody": "Somebody",
         "startSilentTitle": "You joined with no audio output!",
         "startSilentDescription": "Rejoin the meeting to enable audio",
@@ -524,7 +529,17 @@
         "oldElectronClientDescription2": "latest build",
         "oldElectronClientDescription3": " now!"
     },
-    "passwordSetRemotely": "set by another participant",
+    "participantsPane": {
+        "headings": {
+            "lobby": "Lobby ({{count}})",
+            "participantsList": "Meeting participants ({{count}})"
+        },
+        "actions": {
+            "muteAll": "Mute all",
+            "stopVideo": "Stop video"
+        }
+    },
+    "passwordSetRemotely": "Set by another participant",
     "passwordDigitsOnly": "Up to {{number}} digits",
     "poweredby": "powered by",
     "prejoin": {
@@ -742,6 +757,7 @@
             "muteEveryoneElse": "Mute everyone else",
             "muteEveryonesVideo": "Disable everyone's camera",
             "muteEveryoneElsesVideo": "Disable everyone else's camera",
+            "participants": "Participants",
             "pip": "Toggle Picture-in-Picture mode",
             "privateMessage": "Send private message",
             "profile": "Edit your profile",
@@ -751,6 +767,7 @@
             "remoteVideoMute": "Disable camera of participant",
             "security": "Security options",
             "Settings": "Toggle settings",
+            "shareaudio": "Share audio",
             "sharedvideo": "Toggle YouTube video sharing",
             "shareRoom": "Invite someone",
             "shareYourScreen": "Toggle screenshare",
@@ -803,6 +820,7 @@
         "noisyAudioInputTitle": "Your microphone appears to be noisy!",
         "noisyAudioInputDesc": "It sounds like your microphone is making noise, please consider muting or changing the device.",
         "openChat": "Open chat",
+        "participants": "Participants",
         "pip": "Enter Picture-in-Picture mode",
         "privateMessage": "Send private message",
         "profile": "Edit your profile",
@@ -810,6 +828,7 @@
         "raiseYourHand": "Raise your hand",
         "security": "Security options",
         "Settings": "Settings",
+        "shareaudio": "Share audio",
         "sharedvideo": "Share a YouTube video",
         "shareRoom": "Invite someone",
         "shortcuts": "View shortcuts",
@@ -937,6 +956,7 @@
         "header": "Help center"
     },
     "lobby": {
+        "admit": "Admit",
         "knockingParticipantList": "Knocking participant list",
         "allow": "Allow",
         "backToKnockModeButton": "No password, ask to join instead",
